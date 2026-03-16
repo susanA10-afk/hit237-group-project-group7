@@ -12,4 +12,6 @@ Youth Justice & Crime
 - Milan Sapkota
 - Member 4
 
+## Group Allocation
+We, the 4 group members, aim to contribute to the project. Contributions from the members will be monitored through GitHub commits, pull requests, and participation. Everyone should receive the same and fair marks if all members contribute equally. If any member doesn't contribute enough, we may request differentiated grading supported by GitHub evidence.
 
