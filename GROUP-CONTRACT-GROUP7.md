@@ -1,5 +1,4 @@
 ## Group Contract – Group 7
-
 Unit: HIT237  
 Repository: hit237-group-project-group7
 
@@ -31,13 +30,9 @@ In case of disagreement, we will discuss the problem openly and in a respectful 
 ## 6. AI Agreement
 Any work we are submitting must follow CDU academic integrity policies. We can use AI tools in this unit though we cannot rely on them fully. The group will have to make sure whatever AI provides is checked, modified, and well understood. Every member must be aware of the code and the work that we have in the project. We are not supposed to copy work without knowing it. 
 
-## Section 2: Milestones & PLan
-
-## 1. Milestones
-## Section 2: Provisional Milestones and Checkpoints
+### Section 2. Provisional milestones and checkpoints
 
 ### Key Milestones
-
 Week 4 – Finalise project idea and repository setup
 Week 6 – Complete system design and architecture
 Week 8 – Draft Assessment 2 report and initial integration
@@ -45,16 +40,14 @@ Week 10 – Full integration, testing, and bug fixing
 Week 12 – Final review, refinement, and submission for Assessment 4
 
 ### Task Breakdown
-
 * Susan: Repository setup, documentation structure, Markdown file management, and coordination
 * Subodh: System architecture design, diagrams, and technical documentation
 * Milan: Implementation of system features, testing, validation, and report writing
 
 ### Internal Checkpoints
-Weekly meeting will be conducted to monitor the progress and to review the completed task, to identigy the challanges and make plans for upcoming work.evey checkpoint will include a progess evaluation and also conduct responsibility adjustment if required. Regular review of GitHub commits, its issues and pull request will be conducted to ensure balanced contribution and accountability across all the members.
+Weekly meeting will be conducted to monitor the progress and to review the completed task, to identigy the challanges and make plans for upcoming work. Every checkpoint will include a progess evaluation and also conduct responsibility adjustment if required. Regular review of GitHub commits, its issues and pull request will be conducted to ensure balanced contribution and accountability across all the members.
 
 ### Integration Points
-
 Integration will occur progressively during Week 8 and Week 10. GitHub barnches will be used to manage all the works and merge it into the main branch through pull request. Each one of the pull request must be approved by at least on of the team member before merging it to the main branch.Integration testing will be performed to ensure the effective functionality of all components, and any form of conflicts and errors will be resolved collaboratively.
 
 
