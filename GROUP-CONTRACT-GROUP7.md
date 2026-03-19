@@ -33,11 +33,13 @@ Any work we are submitting must follow CDU academic integrity policies. We can u
 ## Section 2. Provisional Milestones and Checkpoints
 
 ## 1. Key Milestones
-Week 4 – Finalise project idea and repository setup
-Week 6 – Complete system design and architecture
-Week 8 – Draft Assessment 2 report and initial integration
-Week 10 – Full integration, testing, and bug fixing
-Week 12 – Final review, refinement, and submission for Assessment 4
+* Week 1–2 – Group formation, idea discussion, and GitHub setup 
+* Week 3 – Finalise group contract and project planning 
+* Week 4–5 – UI/UX design and system planning 
+* Week 6–7 – Start development (frontend, backend, database) 
+* Week 8 – Draft Assessment 2 report and initial integration 
+* Week 9–10 – Testing, debugging, and improvements 
+* Week 11–12 – Final integration, review, and submission for Assessment 4
 
 ## 2. Task Breakdown
 * Susan: Repository setup, documentation structure, Markdown file management, and coordination
