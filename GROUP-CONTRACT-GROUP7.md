@@ -10,7 +10,6 @@ Youth Justice & Crime
 - Susan Acharya
 - Subodh Shrestha
 - Milan Sapkota
-  
 
 ## Section 1: Terms and Conditions
 
@@ -34,4 +33,4 @@ Any work we are submitting must follow CDU academic integrity policies. We can u
 
 ## Section 2: Milestones & PLan
 
-## !. Milestones
+## 1. Milestones
