@@ -11,7 +11,10 @@ class CaseWorker(models.Model):
     def __str__(self):
         return f"{self.user.get_full_name()} ({self.employee_id})"
 
-
+class HighRiskManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(risk_level='high')
+    
 class YoungPerson(models.Model):
     RISK_CHOICES = [
         ('low', 'Low'),
@@ -24,6 +27,8 @@ class YoungPerson(models.Model):
     gender = models.CharField(max_length=20)
     postcode = models.CharField(max_length=10)
     risk_level = models.CharField(max_length=10, choices=RISK_CHOICES)
+    objects = models.Manager()
+    high_risk = HighRiskManager()
     caseworkers = models.ManyToManyField(CaseWorker, blank=True)
 
     def __str__(self):
@@ -34,6 +39,9 @@ class YoungPerson(models.Model):
         from datetime import date
         today = date.today()
         return today.year - self.date_of_birth.year
+    
+    def is_high_risk(self):
+        return self.risk_level == 'high'
 
 
 class Offence(models.Model):
