@@ -2,14 +2,25 @@
 
 {% block content %}
 <h1>Young Persons</h1>
+
+<form method="get">
+    <input type="text" name="search" 
+           placeholder="Search by name..." 
+           value="{{ request.GET.search }}">
+    <button type="submit" class="btn">Search</button>
+</form>
+<br>
+
 <a href="{% url 'justice:youngperson-create' %}" class="btn">Add New Person</a>
 <br><br>
+
 <table>
     <tr>
         <th>Name</th>
         <th>Age</th>
         <th>Risk Level</th>
         <th>Postcode</th>
+        <th>Total Offences</th>
         <th>Actions</th>
     </tr>
     {% for person in youngpeople %}
@@ -18,13 +29,14 @@
         <td>{{ person.age }}</td>
         <td>{{ person.risk_level }}</td>
         <td>{{ person.postcode }}</td>
+        <td>{{ person.offence_count }}</td>
         <td>
             <a href="{% url 'justice:youngperson-detail' person.pk %}">View</a>
         </td>
     </tr>
     {% empty %}
     <tr>
-        <td colspan="5">No young persons found.</td>
+        <td colspan="6">No young persons found.</td>
     </tr>
     {% endfor %}
 </table>
