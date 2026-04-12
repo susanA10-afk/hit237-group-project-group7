@@ -14,6 +14,7 @@ class YoungPersonListView(LoginRequiredMixin, ListView):
     model = YoungPerson
     template_name = 'justice/youngperson_list.html'
     context_object_name = 'youngpeople'
+    paginate_by = 10
 
     def get_queryset(self):
         queryset = YoungPerson.objects.select_related().prefetch_related(
