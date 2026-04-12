@@ -1,0 +1,57 @@
+{% extends 'justice/base.html' %}
+
+{% block content %}
+<h1>{{ youngperson.first_name }} {{ youngperson.last_name }}</h1>
+
+<h2>Personal Details</h2>
+<table>
+    <tr><th>Date of Birth</th><td>{{ youngperson.date_of_birth }}</td></tr>
+    <tr><th>Age</th><td>{{ youngperson.age }}</td></tr>
+    <tr><th>Gender</th><td>{{ youngperson.gender }}</td></tr>
+    <tr><th>Postcode</th><td>{{ youngperson.postcode }}</td></tr>
+    <tr><th>Risk Level</th><td>{{ youngperson.risk_level }}</td></tr>
+</table>
+
+<h2>Offences</h2>
+<table>
+    <tr>
+        <th>Type</th>
+        <th>Date</th>
+        <th>Severity</th>
+        <th>Location</th>
+    </tr>
+    {% for offence in youngperson.offences.all %}
+    <tr>
+        <td>{{ offence.offence_type }}</td>
+        <td>{{ offence.date_of_offence }}</td>
+        <td>{{ offence.severity }}</td>
+        <td>{{ offence.location }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="4">No offences recorded.</td></tr>
+    {% endfor %}
+</table>
+
+<h2>Interventions</h2>
+<table>
+    <tr>
+        <th>Type</th>
+        <th>Status</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+    </tr>
+    {% for intervention in youngperson.interventions.all %}
+    <tr>
+        <td>{{ intervention.intervention_type }}</td>
+        <td>{{ intervention.status }}</td>
+        <td>{{ intervention.start_date }}</td>
+        <td>{{ intervention.end_date }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="4">No interventions recorded.</td></tr>
+    {% endfor %}
+</table>
+
+<br>
+<a href="{% url 'justice:youngperson-list' %}" class="btn">Back to List</a>
+{% endblock %}
