@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Count
 from django.views.generic import (
     ListView, DetailView, CreateView, UpdateView
 )
@@ -15,9 +16,17 @@ class YoungPersonListView(LoginRequiredMixin, ListView):
     context_object_name = 'youngpeople'
 
     def get_queryset(self):
-        return YoungPerson.objects.select_related().prefetch_related(
+        queryset = YoungPerson.objects.select_related().prefetch_related(
             'caseworkers', 'offences', 'interventions'
-        )
+        ).annotate(offence_count=Count('offences'))
+        search = self.request.GET.get('search')
+        if search:
+            queryset = queryset.filter(
+                first_name__icontains=search
+            ) | queryset.filter(
+                last_name__icontains=search
+            )
+        return queryset
 
 
 class YoungPersonDetailView(LoginRequiredMixin, DetailView):
@@ -74,6 +83,6 @@ class CaseWorkerDashboardView(LoginRequiredMixin, ListView):
     context_object_name = 'youngpeople'
 
     def get_queryset(self):
-        return YoungPerson.objects.prefetch_related(
+        return YoungPerson.high_risk.prefetch_related(
             'caseworkers', 'offences'
-        ).filter(risk_level='high')
+        ).annotate(offence_count=Count('offences'))
