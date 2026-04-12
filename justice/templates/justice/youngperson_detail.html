@@ -9,7 +9,18 @@
     <tr><th>Age</th><td>{{ youngperson.age }}</td></tr>
     <tr><th>Gender</th><td>{{ youngperson.gender }}</td></tr>
     <tr><th>Postcode</th><td>{{ youngperson.postcode }}</td></tr>
-    <tr><th>Risk Level</th><td>{{ youngperson.risk_level }}</td></tr>
+    <tr>
+    <th>Risk Level</th>
+    <td>
+        {% if youngperson.risk_level == 'high' %}
+            <span style="background:#ffcccc; color:#cc0000; padding:3px 8px; border-radius:4px; font-weight:bold;">High</span>
+        {% elif youngperson.risk_level == 'medium' %}
+            <span style="background:#fff3cd; color:#856404; padding:3px 8px; border-radius:4px; font-weight:bold;">Medium</span>
+        {% else %}
+            <span style="background:#d4edda; color:#155724; padding:3px 8px; border-radius:4px; font-weight:bold;">Low</span>
+        {% endif %}
+    </td>
+    </tr>
 </table>
 
 <h2>Offences</h2>

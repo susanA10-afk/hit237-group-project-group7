@@ -27,7 +27,16 @@
     <tr>
         <td>{{ person.first_name }} {{ person.last_name }}</td>
         <td>{{ person.age }}</td>
-        <td>{{ person.risk_level }}</td>
+
+        <td>
+            {% if person.risk_level == 'high' %}
+            <span style="background:#ffcccc; color:#cc0000; padding:3px 8px; border-radius:4px; font-weight:bold;">High</span>
+            {% elif person.risk_level == 'medium' %}
+            <span style="background:#fff3cd; color:#856404; padding:3px 8px; border-radius:4px; font-weight:bold;">Medium</span>
+            {% else %}
+            <span style="background:#d4edda; color:#155724; padding:3px 8px; border-radius:4px; font-weight:bold;">Low</span>
+            {% endif %}
+        </td>
         <td>{{ person.postcode }}</td>
         <td>{{ person.offence_count }}</td>
         <td>
