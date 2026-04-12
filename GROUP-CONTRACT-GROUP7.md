@@ -1,56 +1,91 @@
-## Group Contract – Group 7
-Unit: HIT237  
+# Group Contract – Group 7
+
+Unit: HIT237
 Repository: hit237-group-project-group7
 
 ## Project Theme
 Youth Justice & Crime
 
 ## Group Members
-- Susan Acharya (S383819)
-- Subodh Shrestha (S404921)
-- Milan Sapkota (S396875)
+
+| Name | Student ID | GitHub | Role |
+|------|------------|--------|------|
+| Susan Acharya | S383819 | susanA10-afk | ADR documentation, group contract, code references |
+| Subodh Shrestha | S404921 | subodh404921 | ERD, class diagrams, architecture |
+| Milan Sapkota | S396875 | milansapkota16-lang | Backend, models, views, URLs, admin |
+| Sisan Pandey | S382718 | shisanpandey0 | Frontend templates, testing, debugging |
+
+---
 
 ## Section 1: Terms and Conditions
 
-## 1. Group Allocation
-We, the 3 group members, aim to contribute to the project. Contributions from the members will be monitored through GitHub commits, pull requests, and participation. Everyone should receive the same and fair marks if all members contribute equally. If any member doesn't contribute enough, we may request differentiated grading supported by GitHub evidence.
+### 1. Group Allocation
+All four of us have agreed to put in equal effort for this project. We are keeping track of who is doing what through GitHub commits and pull requests. If someone ends up doing significantly less work than others, we will bring this up with the lecturer and use GitHub history as evidence.
 
-## 2. Communication
-Our group will communicate using both **Microsoft Teams** and **GitHub Issues**. Each member is expected to respond within **24 hours** for a smooth troubleshooting. Meetings will be held via MS Teams every 4 days to review progress, assign tasks, and discuss any issues.
+### 2. Communication
+We mainly talk through Microsoft Teams and use GitHub Issues to track tasks. We have agreed that everyone should reply within 24 hours so we do not get stuck waiting on each other. We catch up on Teams every few days to check how things are going and sort out any problems.
 
-## 3. Task Ownership
-The assignments will be created and set through GitHub Issues. Every member will be expected to complete their tasks on time. In case someone is unable to finish their task, he should communicate to the group using Microsoft Teams as early as possible so that we can rearrange the work. If delays occur repeatedly without a valid reason, this can impact their marks and other team members will not be responsible for it.
+### 3. Task Ownership
+Each person picks up their tasks through GitHub Issues. If someone cannot finish something on time, they need to let the group know as early as possible on Teams so we can figure out who can help or take it over. If someone keeps missing their tasks without a good reason, that will be reflected in how marks are split.
 
-## 4. Diverse Working Styles
-We know that everyone has their own timetables and responsibilities. In order to deal with this we will schedule our work in advance and have achievable deadlines. We will also help one another in case someone needs help.
+### 4. Different Schedules
+We all have different timetables and commitments outside uni. We try to plan ahead and be realistic about deadlines. If someone is struggling, we help out rather than just leaving it.
 
-## 5. Conflict Resolution
-In case of disagreement, we will discuss the problem openly and in a respectful manner as a group using Microsoft Teams. Every member will be allowed to express their opinion, and we will try to find a mutual agreement. In case the problem remains unsolved, we will communicate to the lecturer to provide guidance.
+### 5. Conflict Resolution
+If we disagree on something, we talk it through on Teams and try to find a solution everyone is okay with. If we genuinely cannot agree, we will ask the lecturer to help us sort it out.
 
-## 6. Academic Integrity
-Any work we are submitting must follow CDU academic integrity policies. We can use AI tools in this unit though we cannot rely on them fully. The group will have to make sure whatever AI provides is checked, modified, and well understood. Every member must be aware of the code and the work that we have in the project. We are not supposed to copy work without knowing it. 
+### 6. Academic Integrity and AI Tools
+We follow CDU academic integrity rules. We are using AI tools like Claude and GitHub Copilot to help write and scaffold code, which is allowed in this unit. But we have agreed on some ground rules:
 
-## Section 2. Provisional Milestones and Checkpoints
+- Anyone who uses AI to generate code has to actually read and understand it before pushing it to GitHub
+- Every decision that was helped by AI needs to be written up in our ADR with an explanation of why we made that choice
+- Every group member needs to be able to explain any part of the project if asked in the viva
+- Nobody submits something they cannot explain
 
-## 1. Key Milestones
-* Week 1–2 – Group formation, idea discussion, and GitHub setup 
-* Week 3 – Finalise group contract and project planning 
-* Week 4–5 – UI/UX design and system planning 
-* Week 6–7 – Start development (frontend, backend, database) 
-* Week 8 – Draft Assessment 2 report and initial integration 
-* Week 9–10 – Testing, debugging, and improvements 
-* Week 11–12 – Final integration, review, and submission for Assessment 4
+We see AI as a tool to help us work faster, not something to do the thinking for us.
 
-## 2. Task Breakdown
-* Susan: Repository setup, documentation structure, Markdown file management, and coordination
-* Subodh: System architecture design, diagrams, and technical documentation
-* Milan: Implementation of system features, testing, validation, and report writing
+---
 
-## 3. Internal Checkpoints
-Weekly meeting will be conducted to monitor the progress and to review the completed task, to identigy the challenges and make plans for upcoming work. Every checkpoint will include a progress evaluation and also conduct responsibility adjustment if required. Regular review of GitHub commits, its issues and pull requests will be conducted to ensure balanced contribution and accountability across all the members.
+## Section 2: Planning and Milestones
 
-## 4. Integration Points
-Integration will occur progressively during Week 8 and Week 10. GitHub branches will be used to manage all the works and merge it into the main branch through pull request. Each one of the pull request must be approved by at least one of the team members before merging it to the main branch. Integration testing will be performed to ensure the effective functionality of all components, and any form of conflicts and errors will be resolved collaboratively.
+### Who is doing what
+
+| Member | Main Tasks |
+|--------|-----------|
+| Milan | models.py, admin.py, urls.py, views.py, query optimisation |
+| Susan | ADR.md, group contract, adding file and line references |
+| Subodh | ERD diagram, class diagram, saving diagrams to docs folder |
+| Sisan | HTML templates, testing, fixing bugs |
+
+### Milestones
+
+| What needs to be done | Who | By when | Status |
+|----------------------|-----|---------|--------|
+| Group setup and GitHub repo | All | Week 2 | ✅ Done |
+| Group contract first version | Susan | Week 3 | ✅ Done |
+| Django project and models | Milan | Week 6 | ✅ Done |
+| ADR-001 to ADR-004 written | Susan | Apr 12 | 🔄 In progress |
+| ERD and class diagram | Subodh | Apr 13 | 🔄 In progress |
+| Views and URLs done | Milan | Apr 13 | 🔄 In progress |
+| Templates done | Sisan | Apr 14 | 🔄 In progress |
+| ADR line references added | Susan | Apr 15 | ⏳ Pending |
+| Final check and submission | All | Apr 16 | ⏳ Pending |
+
+### Meetings and check-ins
+We meet on Teams every few days to go over what has been done and what is next. We also check GitHub regularly to make sure everyone is committing work and not just one or two people carrying the group.
+
+### Bringing it all together
+We are working on a shared branch called setup/a2. Before anything gets merged into main, at least one other person has to review and approve the pull request. We will do a final check of everything working together before the April 16 deadline.
+
+---
 
 ## Agreement
-This contract is agreed upon by all members and is to be observed during the project with respect, courtesy and integrity.
+
+We all agree to this contract and will do our best to stick to it.
+
+| Name | Student ID | Signed |
+|------|------------|--------|
+| Susan Acharya | S383819 | ✓ |
+| Subodh Shrestha | S404921 | ✓ |
+| Milan Sapkota | S396875 | ✓ |
+| Sisan Pandey | S382718 | ✓ |
