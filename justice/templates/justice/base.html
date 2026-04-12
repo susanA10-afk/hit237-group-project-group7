@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Youth Justice System</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        nav { background: #333; padding: 10px; }
+        nav a { color: white; margin-right: 15px; text-decoration: none; }
+        .container { margin-top: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #333; color: white; }
+        .btn { padding: 8px 15px; background: #333; color: white; 
+               text-decoration: none; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'justice:home' %}">Home</a>
+        <a href="{% url 'justice:youngperson-list' %}">Young Persons</a>
+        <a href="{% url 'justice:dashboard' %}">Dashboard</a>
+        <a href="{% url 'justice:youngperson-create' %}">Add Person</a>
+    </nav>
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

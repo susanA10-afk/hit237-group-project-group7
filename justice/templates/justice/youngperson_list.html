@@ -1,0 +1,31 @@
+{% extends 'justice/base.html' %}
+
+{% block content %}
+<h1>Young Persons</h1>
+<a href="{% url 'justice:youngperson-create' %}" class="btn">Add New Person</a>
+<br><br>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Risk Level</th>
+        <th>Postcode</th>
+        <th>Actions</th>
+    </tr>
+    {% for person in youngpeople %}
+    <tr>
+        <td>{{ person.first_name }} {{ person.last_name }}</td>
+        <td>{{ person.age }}</td>
+        <td>{{ person.risk_level }}</td>
+        <td>{{ person.postcode }}</td>
+        <td>
+            <a href="{% url 'justice:youngperson-detail' person.pk %}">View</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="5">No young persons found.</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
