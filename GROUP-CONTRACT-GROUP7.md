@@ -61,15 +61,15 @@ We see AI as a tool to help us work faster, not something to do the thinking for
 
 | What needs to be done | Who | By when | Status |
 |----------------------|-----|---------|--------|
-| Group setup and GitHub repo | All | Week 2 | ✅ Done |
-| Group contract first version | Susan | Week 3 | ✅ Done |
-| Django project and models | Milan | Week 6 | ✅ Done |
-| ADR-001 to ADR-004 written | Susan | Apr 12 | 🔄 In progress |
-| ERD and class diagram | Subodh | Apr 13 | 🔄 In progress |
-| Views and URLs done | Milan | Apr 13 | 🔄 In progress |
-| Templates done | Sisan | Apr 14 | 🔄 In progress |
-| ADR line references added | Susan | Apr 15 | ⏳ Pending |
-| Final check and submission | All | Apr 16 | ⏳ Pending |
+| Group setup and GitHub repo | All | Week 2 |  Done |
+| Group contract first version | Susan | Week 3 |  Done |
+| Django project and models | Milan | Week 6 |  Done |
+| ADR-001 to ADR-004 written | Susan | Apr 12 |  In progress |
+| ERD and class diagram | Subodh | Apr 13 |  In progress |
+| Views and URLs done | Milan | Apr 13 |  In progress |
+| Templates done | Sisan | Apr 14 |  In progress |
+| ADR line references added | Susan | Apr 15 |  Pending |
+| Final check and submission | All | Apr 16 |  Pending |
 
 ### Meetings and check-ins
 We meet on Teams every few days to go over what has been done and what is next. We also check GitHub regularly to make sure everyone is committing work and not just one or two people carrying the group.
@@ -85,7 +85,7 @@ We all agree to this contract and will do our best to stick to it.
 
 | Name | Student ID | Signed |
 |------|------------|--------|
-| Susan Acharya | S383819 | ✓ |
-| Subodh Shrestha | S404921 | ✓ |
-| Milan Sapkota | S396875 | ✓ |
-| Sisan Pandey | S382718 | ✓ |
+| Susan Acharya | S383819 | S |
+| Subodh Shrestha | S404921 | S |
+| Milan Sapkota | S396875 | S |
+| Sisan Pandey | S382718 | S |
