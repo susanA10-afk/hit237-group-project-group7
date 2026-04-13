@@ -12,4 +12,6 @@ urlpatterns = [
     path('intervention/create/', views.InterventionCreateView.as_view(), name='intervention-create'),
     path('intervention/<int:pk>/update/', views.InterventionUpdateView.as_view(), name='intervention-update'),
     path('dashboard/', views.CaseWorkerDashboardView.as_view(), name='dashboard'),
+    path('courthearing/create/', views.CourtHearingCreateView.as_view(), name='courthearing-create'),
+    path('courthearing/<int:pk>/', views.CourtHearingDetailView.as_view(), name='courthearing-detail'),
 ]
