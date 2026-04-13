@@ -64,7 +64,7 @@ We see AI as a tool to help us work faster, not something to do the thinking for
 | Group setup and GitHub repo | All | Week 2 |  Done |
 | Group contract first version | Susan | Week 3 |  Done |
 | Django project and models | Milan | Week 6 |  Done |
-| ADR-001 to ADR-004 written | Susan | Apr 12 |  In progress |
+| ADR-001 to ADR-006 written | Susan | Apr 12 |  Done |
 | ERD and class diagram | Subodh | Apr 13 |  In progress |
 | Views and URLs done | Milan | Apr 13 |  In progress |
 | Templates done | Sisan | Apr 14 |  In progress |
