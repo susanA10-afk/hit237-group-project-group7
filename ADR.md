@@ -78,7 +78,7 @@ This makes sense because charge type belongs to the
 relationship between a hearing and an offence — not to 
 either one on its own.
 
-**Code reference:** `justice/models.py` — HearingOffence class lines 70–82
+**Code reference:** `justice/models.py` — HearingOffence class lines 99–105
 
 ### What this means going forward
 - We can record richer data about each hearing
