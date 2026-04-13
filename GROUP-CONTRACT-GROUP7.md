@@ -66,7 +66,7 @@ We see AI as a tool to help us work faster, not something to do the thinking for
 | Django project and models | Milan | Week 6 |  Done |
 | ADR-001 to ADR-006 written | Susan | Apr 12 |  Done |
 | ERD and class diagram | Subodh | Apr 13 |  In progress |
-| Views and URLs done | Milan | Apr 13 |  In progress |
+| Views and URLs done | Milan | Apr 13 |  Done |
 | Templates done | Sisan | Apr 14 |  In progress |
 | ADR line references added | Susan | Apr 15 |  Pending |
 | Final check and submission | All | Apr 16 |  Pending |
