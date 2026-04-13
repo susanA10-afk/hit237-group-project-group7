@@ -78,7 +78,7 @@ This makes sense because charge type belongs to the
 relationship between a hearing and an offence — not to 
 either one on its own.
 
-**Code reference:** `justice/models.py` — HearingOffence class
+**Code reference:** `justice/models.py` — HearingOffence class lines 99–105
 
 ### What this means going forward
 - We can record richer data about each hearing
@@ -114,9 +114,16 @@ DeleteView. This follows the DRY principle (Don't Repeat
 Yourself) because we get standard CRUD functionality without 
 writing the same logic over and over.
 
-**Code reference:** `justice/views.py` — all views use 
-Django CBV base classes (line references to be added 
-when Milan completes views)
+**Code reference:** `justice/views.py` —
+- YoungPersonListView lines 13–30
+- YoungPersonDetailView lines 33–41
+- YoungPersonCreateView lines 44–51
+- OffenceCreateView lines 54–61
+- InterventionCreateView lines 64–71
+- InterventionUpdateView lines 74–78
+- CaseWorkerDashboardView lines 81–89
+
+`justice/urls.py` — urlpatterns lines 6–15
 
 ### What this means going forward
 - All views follow the same consistent pattern
@@ -200,8 +207,15 @@ This follows Django's explicit is better than implicit
 philosophy — we are deliberate about how data is fetched 
 rather than letting Django make many small queries by default.
 
-**Code reference:** `justice/views.py` — get_queryset methods 
-(line references to be added when Milan completes views)
+**Code reference:** `justice/views.py` —
+- YoungPersonListView.get_queryset lines 19–30 — uses 
+select_related and prefetch_related with annotate for 
+offence count
+- YoungPersonDetailView.get_queryset lines 38–41 — uses 
+prefetch_related to fetch offences, interventions and 
+hearings in one query
+- CaseWorkerDashboardView.get_queryset lines 86–89 — uses 
+high_risk custom manager with prefetch_related and annotate
 
 ### What this means going forward
 - Fewer database queries means faster page loads
@@ -213,3 +227,47 @@ a new view is added
 *This document will keep being updated as development 
 continues. Line number references will be added once 
 all views and models are finalised.*
+
+---
+
+## ADR-006: Custom Manager for high risk young persons
+
+**Status:** Accepted  
+**Date:** April 2026  
+**Author:** Susan Acharya
+
+### What was the problem
+The caseworker dashboard needs to show only high risk young 
+persons. We could filter in every view individually but that 
+would repeat the same filter logic in multiple places.
+
+### Options we looked at
+
+| Option | Good | Bad |
+|--------|------|-----|
+| Filter in every view manually | Simple to write | Repeats same logic everywhere, violates DRY |
+| Custom manager on YoungPerson model | One place to define the filter, reusable everywhere | Slightly more setup |
+
+### What we decided
+We created a custom manager called `high_risk` on the 
+YoungPerson model. Any view can access high risk young 
+persons by simply calling `YoungPerson.high_risk.all()` 
+without repeating filter logic anywhere.
+
+This follows Django's DRY philosophy — the filtering 
+logic is defined once and reused everywhere it is needed.
+
+**Code reference:** 
+- `justice/models.py` — high_risk custom manager
+- `justice/views.py` — CaseWorkerDashboardView.get_queryset 
+line 87 uses YoungPerson.high_risk.prefetch_related()
+
+### What this means going forward
+- Any new view can reuse the high_risk manager easily
+- Filter logic only needs to be changed in one place
+- Makes the codebase cleaner and easier to read
+
+---
+
+*This document will keep being updated as development 
+continues.*
