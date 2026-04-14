@@ -1,5 +1,6 @@
 # Entity Relationship Diagram
 
+```mermaid
 erDiagram
 
     USER ||--|| CASEWORKER : has
