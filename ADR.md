@@ -269,3 +269,8 @@ line 87 uses YoungPerson.high_risk.prefetch_related()
 
 *This document was completed on April 15, 2026. 
 All decisions are final and reference the submitted codebase.*
+
+## Future Improvements
+- Add role-based access control
+- Improve validation and error handling
+- Add reporting dashboard for case insights
