@@ -270,7 +270,14 @@ line 87 uses YoungPerson.high_risk.prefetch_related()
 *This document was completed on April 15, 2026. 
 All decisions are final and reference the submitted codebase.*
 
-## Future Improvements
-- Add role-based access control
-- Improve validation and error handling
-- Add reporting dashboard for case insights
+## Design Justification
+Django was selected as the primary framework due to its structured architecture, rapid development capability, and built-in features such as ORM and admin interface. These features make it suitable for applications that require strong data handling and scalability.
+
+## Architectural Approach
+The system follows a modular design where configuration, application logic, and data models are separated into different components. This improves maintainability and allows future expansion without significant restructuring.
+
+## Future Considerations
+- Integration of user authentication and authorization
+- Migration to a scalable production database such as PostgreSQL
+- Development of a user-friendly frontend interface
+- Implementation of analytics and reporting features
