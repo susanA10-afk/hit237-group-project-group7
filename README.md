@@ -21,9 +21,12 @@ track court hearings.
    pip install -r requirements.txt
 5. Run migrations:
    python manage.py migrate
-6. Start the server:
+6. Create a superuser: 
+   python manage.py createsuperuser (enter any username and password you want)
+7. Start the server:
    python manage.py runserver
-7. Open browser at http://127.0.0.1:8000
+8. Open browser at http://127.0.0.1:8000
+9. Login with the superuser credentials you just created
 
 ## Group Members
 - Susan Acharya (S383819)
