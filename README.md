@@ -34,5 +34,22 @@ track court hearings.
 ## Unit
 HIT237 — Charles Darwin University, 2026
 
+## System Design
+This project follows the Model-View-Template (MVT) architecture of Django.
+- Models handle the database structure and relationships
+- Views control the application logic
+- Templates (future scope) will manage the user interface
+
+## Project Structure
+- justice/ – configuration files
+- youthjustice/ – core application logic and models
+- manage.py – application entry point
+- requirements.txt – project dependencies
+
+## Future Enhancements
+- Add role-based access control
+- Improve validation and error handling
+- Implement reporting dashboard
+
 ## Additional Notes
 This project was reviewed and documentation was improved to ensure clarity in setup and structure.
