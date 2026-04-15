@@ -87,3 +87,24 @@ class CaseWorkerDashboardView(LoginRequiredMixin, ListView):
         return YoungPerson.high_risk.prefetch_related(
             'caseworkers', 'offences'
         ).annotate(offence_count=Count('offences'))
+    
+from .models import (
+    YoungPerson, Offence, Intervention,
+    CaseWorker, CourtHearing, HearingOffence
+)
+
+
+class CourtHearingCreateView(LoginRequiredMixin, CreateView):
+    model = CourtHearing
+    template_name = 'justice/courthearing_form.html'
+    fields = [
+        'young_person', 'hearing_date', 'court_name',
+        'outcome', 'presiding_judge'
+    ]
+    success_url = reverse_lazy('justice:youngperson-list')
+
+
+class CourtHearingDetailView(LoginRequiredMixin, DetailView):
+    model = CourtHearing
+    template_name = 'justice/courthearing_detail.html'
+    context_object_name = 'hearing'
