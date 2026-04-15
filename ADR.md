@@ -80,6 +80,10 @@ either one on its own.
 
 **Code reference:** `justice/models.py` — HearingOffence class lines 99–105
 
+**Diagram reference:** 
+- `youthjustice/docs/ERD.md` — full entity relationship diagram
+- `youthjustice/docs/ClassDiagram.md` — class diagram
+
 ### What this means going forward
 - We can record richer data about each hearing
 - Adding offences to hearings needs to go through 
