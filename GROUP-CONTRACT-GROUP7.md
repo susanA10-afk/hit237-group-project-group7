@@ -96,3 +96,8 @@ We all agree to this contract and will do our best to stick to it.
 | Subodh Shrestha | S404921 | S |
 | Milan Sapkota | S396875 | S |
 | Sisan Pandey | S382718 | S |
+
+## Final Checklist
+- Ensure README is updated
+- Verify project runs correctly
+- Confirm all files are pushed before submission
