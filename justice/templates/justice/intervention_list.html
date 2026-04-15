@@ -1,0 +1,37 @@
+{% extends 'justice/base.html' %}
+
+{% block content %}
+<h1>Interventions</h1>
+<a href="{% url 'justice:intervention-create' %}" class="btn">Add New Intervention</a>
+<br><br>
+<table>
+    <tr>
+        <th>Young Person</th>
+        <th>Type</th>
+        <th>Assigned Worker</th>
+        <th>Start Date</th>
+        <th>Status</th>
+    </tr>
+    {% for intervention in interventions %}
+    <tr>
+        <td>{{ intervention.young_person }}</td>
+        <td>{{ intervention.intervention_type }}</td>
+        <td>{{ intervention.assigned_worker }}</td>
+        <td>{{ intervention.start_date }}</td>
+        <td>
+            {% if intervention.status == 'active' %}
+                <span style="background:#d4edda; color:#155724; padding:3px 8px; border-radius:4px;">Active</span>
+            {% elif intervention.status == 'completed' %}
+                <span style="background:#cce5ff; color:#004085; padding:3px 8px; border-radius:4px;">Completed</span>
+            {% else %}
+                <span style="background:#f8d7da; color:#721c24; padding:3px 8px; border-radius:4px;">Discontinued</span>
+            {% endif %}
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="5">No interventions found.</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

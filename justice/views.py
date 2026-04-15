@@ -115,3 +115,13 @@ class CaseWorkerCreateView(LoginRequiredMixin, CreateView):
     template_name = 'justice/caseworker_form.html'
     fields = ['user', 'employee_id', 'phone', 'department']
     success_url = reverse_lazy('justice:youngperson-list')
+
+class InterventionListView(LoginRequiredMixin, ListView):
+    model = Intervention
+    template_name = 'justice/intervention_list.html'
+    context_object_name = 'interventions'
+
+    def get_queryset(self):
+        return Intervention.objects.select_related(
+            'young_person', 'assigned_worker'
+        )

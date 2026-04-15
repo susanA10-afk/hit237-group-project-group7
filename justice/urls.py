@@ -14,5 +14,6 @@ urlpatterns = [
     path('dashboard/', views.CaseWorkerDashboardView.as_view(), name='dashboard'),
     path('caseworker/create/', views.CaseWorkerCreateView.as_view(), name='caseworker-create'),
     path('courthearing/create/', views.CourtHearingCreateView.as_view(), name='courthearing-create'),
+    path('intervention/', views.InterventionListView.as_view(), name='intervention-list'),
     path('courthearing/<int:pk>/', views.CourtHearingDetailView.as_view(), name='courthearing-detail'),
 ]
