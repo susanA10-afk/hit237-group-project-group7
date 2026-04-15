@@ -109,3 +109,9 @@ class CourtHearingDetailView(LoginRequiredMixin, DetailView):
     model = CourtHearing
     template_name = 'justice/courthearing_detail.html'
     context_object_name = 'hearing'
+
+class CaseWorkerCreateView(LoginRequiredMixin, CreateView):
+    model = CaseWorker
+    template_name = 'justice/caseworker_form.html'
+    fields = ['user', 'employee_id', 'phone', 'department']
+    success_url = reverse_lazy('justice:youngperson-list')
