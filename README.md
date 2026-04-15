@@ -33,3 +33,6 @@ track court hearings.
 
 ## Unit
 HIT237 — Charles Darwin University, 2026
+
+## Additional Notes
+This project was reviewed and documentation was improved to ensure clarity in setup and structure.
