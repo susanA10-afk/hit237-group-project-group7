@@ -29,6 +29,10 @@ I went through the app manually and tested all the main features to make sure ev
 | Dashboard filters correctly | /dashboard/ | Medium and low risk not showing | Pass |
 | Logout works | Click logout button | Redirects to login page | Pass |
 | Pages require login | /youngperson/ | Redirects to login if not logged in | Pass |
+| Add caseworker form loads | /caseworker/create/ | Form shows correctly | Pass |
+| Add caseworker saves | /caseworker/create/ | Caseworker appears in intervention dropdown | Pass |
+| Intervention list loads | /intervention/ | All interventions show with status colours | Pass |
+| Add intervention with date picker | /intervention/create/ | Form saves correctly | Pass |
 
 ## What I noticed while testing
 
@@ -39,4 +43,4 @@ The date picker on the offence and hearing forms makes it much easier to enter d
 
 ## Summary
 
-All 19 tests passed. The app is working correctly. No bugs or issues were found during testing.
+All 23 tests passed. The app is working correctly. No bugs or issues were found during testing.
