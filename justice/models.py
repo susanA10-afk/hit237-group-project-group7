@@ -1,3 +1,9 @@
+"""
+This module defines the database models used in the Youth Justice system.
+It includes structures for storing case records, offences, and related data.
+These models are designed to support structured data handling and future scalability.
+"""
+
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -103,3 +109,4 @@ class HearingOffence(models.Model):
 
     def __str__(self):
         return f"{self.charge_type} - {self.hearing}"
+
