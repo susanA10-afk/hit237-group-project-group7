@@ -69,13 +69,20 @@ We see AI as a tool to help us work faster, not something to do the thinking for
 | Views and URLs done | Milan | Apr 13 |  Done |
 | Templates done | Sisan | Apr 14 |  Done |
 | ADR line references added | Susan | Apr 15 |  Done |
-| Final check and submission | All | Apr 16 |  Pending |
+| Final check and submission | All | Apr 16 |  Done |
 
 ### Meetings and check-ins
 We meet on Teams every few days to go over what has been done and what is next. We also check GitHub regularly to make sure everyone is committing work and not just one or two people carrying the group.
 
 ### Bringing it all together
-We are working on a shared branch called setup/a2. Before anything gets merged into main, at least one other person has to review and approve the pull request. We will do a final check of everything working together before the April 16 deadline.
+We worked on a shared branch called setup/a2 throughout the 
+project. All features, documentation, and templates were 
+developed and tested on this branch before merging into main. 
+The final merge was completed on April 15, 2026 ahead of the 
+submission deadline. All pull requests were reviewed by at 
+least one other member before merging. The final app was 
+tested locally using `python manage.py runserver` and 
+confirmed working by all members before submission.
 
 ---
 
