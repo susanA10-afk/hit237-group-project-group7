@@ -228,12 +228,6 @@ a new view is added
 
 ---
 
-*This document will keep being updated as development 
-continues. Line number references will be added once 
-all views and models are finalised.*
-
----
-
 ## ADR-006: Custom Manager for high risk young persons
 
 **Status:** Accepted  
@@ -273,5 +267,5 @@ line 87 uses YoungPerson.high_risk.prefetch_related()
 
 ---
 
-*This document will keep being updated as development 
-continues.*
+*This document was completed on April 15, 2026. 
+All decisions are final and reference the submitted codebase.*
