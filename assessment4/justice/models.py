@@ -5,11 +5,11 @@ These models are designed to support structured data handling and future scalabi
 """
 
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 
 
 class CaseWorker(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     employee_id = models.CharField(max_length=20)
     phone = models.CharField(max_length=15)
     department = models.CharField(max_length=100)
