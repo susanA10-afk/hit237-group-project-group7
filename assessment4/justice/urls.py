@@ -12,6 +12,7 @@ urlpatterns = [
     path('intervention/create/', views.InterventionCreateView.as_view(), name='intervention-create'),
     path('intervention/<int:pk>/update/', views.InterventionUpdateView.as_view(), name='intervention-update'),
     path('dashboard/', views.CaseWorkerDashboardView.as_view(), name='dashboard'),
+    path('stats/', views.StatsDashboardView.as_view(), name='stats'),
     path('caseworker/create/', views.CaseWorkerCreateView.as_view(), name='caseworker-create'),
     path('courthearing/create/', views.CourtHearingCreateView.as_view(), name='courthearing-create'),
     path('intervention/', views.InterventionListView.as_view(), name='intervention-list'),
