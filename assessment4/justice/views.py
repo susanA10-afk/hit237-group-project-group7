@@ -1,13 +1,27 @@
-# This module handles application logic and request-response flow
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count
 from django.views.generic import (
     ListView, DetailView, CreateView, UpdateView
 )
+from django.views import View
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.urls import reverse_lazy
 from .models import (
     YoungPerson, Offence, Intervention,
     CaseWorker, CourtHearing
+)
+from .services import (
+    get_all_young_persons,
+    get_high_risk_cases,
+    get_young_person_by_id,
+    record_offence,
+    assign_intervention,
+    get_dashboard_stats
+)
+from .exceptions import (
+    YoungPersonNotFound,
+    InterventionLimitExceeded
 )
 
 
@@ -18,9 +32,9 @@ class YoungPersonListView(LoginRequiredMixin, ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        queryset = YoungPerson.objects.select_related().prefetch_related(
-            'caseworkers', 'offences', 'interventions'
-        ).annotate(offence_count=Count('offences'))
+        queryset = get_all_young_persons().annotate(
+            offence_count=Count('offences')
+        )
         search = self.request.GET.get('search')
         if search:
             queryset = queryset.filter(
@@ -79,20 +93,31 @@ class InterventionUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('justice:youngperson-list')
 
 
+class InterventionListView(LoginRequiredMixin, ListView):
+    model = Intervention
+    template_name = 'justice/intervention_list.html'
+    context_object_name = 'interventions'
+
+    def get_queryset(self):
+        return Intervention.objects.select_related(
+            'young_person', 'assigned_worker'
+        )
+
+
 class CaseWorkerDashboardView(LoginRequiredMixin, ListView):
     model = YoungPerson
     template_name = 'justice/dashboard.html'
     context_object_name = 'youngpeople'
 
     def get_queryset(self):
-        return YoungPerson.high_risk.prefetch_related(
-            'caseworkers', 'offences'
-        ).annotate(offence_count=Count('offences'))
-    
-from .models import (
-    YoungPerson, Offence, Intervention,
-    CaseWorker, CourtHearing, HearingOffence
-)
+        return get_high_risk_cases().annotate(
+            offence_count=Count('offences')
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['stats'] = get_dashboard_stats()
+        return context
 
 
 class CourtHearingCreateView(LoginRequiredMixin, CreateView):
@@ -110,18 +135,15 @@ class CourtHearingDetailView(LoginRequiredMixin, DetailView):
     template_name = 'justice/courthearing_detail.html'
     context_object_name = 'hearing'
 
+
 class CaseWorkerCreateView(LoginRequiredMixin, CreateView):
     model = CaseWorker
     template_name = 'justice/caseworker_form.html'
     fields = ['user', 'employee_id', 'phone', 'department']
     success_url = reverse_lazy('justice:youngperson-list')
 
-class InterventionListView(LoginRequiredMixin, ListView):
-    model = Intervention
-    template_name = 'justice/intervention_list.html'
-    context_object_name = 'interventions'
 
-    def get_queryset(self):
-        return Intervention.objects.select_related(
-            'young_person', 'assigned_worker'
-        )
+class StatsDashboardView(LoginRequiredMixin, View):
+    def get(self, request):
+        stats = get_dashboard_stats()
+        return render(request, 'justice/stats.html', {'stats': stats})
