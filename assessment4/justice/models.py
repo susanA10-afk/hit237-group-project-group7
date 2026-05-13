@@ -37,6 +37,9 @@ class YoungPerson(models.Model):
     high_risk = HighRiskManager()
     caseworkers = models.ManyToManyField(CaseWorker, blank=True)
 
+    class Meta:
+            ordering = ['last_name', 'first_name']
+
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
@@ -44,7 +47,12 @@ class YoungPerson(models.Model):
     def age(self):
         from datetime import date
         today = date.today()
-        return today.year - self.date_of_birth.year
+        if isinstance(self.date_of_birth, str):
+            from datetime import datetime
+            dob = datetime.strptime(self.date_of_birth, '%Y-%m-%d').date()
+        else:
+            dob = self.date_of_birth
+        return today.year - dob.year
     
     def is_high_risk(self):
         return self.risk_level == 'high'
