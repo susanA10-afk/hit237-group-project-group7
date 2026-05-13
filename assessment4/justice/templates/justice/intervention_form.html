@@ -1,0 +1,20 @@
+{% extends 'justice/base.html' %}
+
+{% block content %}
+<h1>{% if object %}Update Intervention{% else %}Add New Intervention{% endif %}</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn">Save</button>
+    <a href="{% url 'justice:youngperson-list' %}" class="btn">Cancel</a>
+</form>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var startDate = document.querySelector('input[name="start_date"]');
+    var endDate = document.querySelector('input[name="end_date"]');
+    if (startDate) { startDate.type = 'date'; }
+    if (endDate) { endDate.type = 'date'; }
+});
+</script>
+{% endblock %}

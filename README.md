@@ -41,7 +41,7 @@ HIT237 — Charles Darwin University, 2026
 This project follows the Model-View-Template (MVT) architecture of Django.
 - Models handle the database structure and relationships
 - Views control the application logic
-- Templates (future scope) will manage the user interface
+- Templates will manage the user interface
 
 ## Project Structure
 - justice/ – configuration files

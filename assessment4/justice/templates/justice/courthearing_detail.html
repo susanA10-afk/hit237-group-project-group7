@@ -1,0 +1,34 @@
+{% extends 'justice/base.html' %}
+
+{% block content %}
+<h1>Court Hearing Details</h1>
+
+<table>
+    <tr><th>Young Person</th><td>{{ hearing.young_person }}</td></tr>
+    <tr><th>Hearing Date</th><td>{{ hearing.hearing_date }}</td></tr>
+    <tr><th>Court Name</th><td>{{ hearing.court_name }}</td></tr>
+    <tr><th>Outcome</th><td>{{ hearing.outcome }}</td></tr>
+    <tr><th>Presiding Judge</th><td>{{ hearing.presiding_judge }}</td></tr>
+</table>
+
+<h2>Offences in this Hearing</h2>
+<table>
+    <tr>
+        <th>Offence Type</th>
+        <th>Charge Type</th>
+        <th>Severity</th>
+    </tr>
+    {% for ho in hearing.hearingoffence_set.all %}
+    <tr>
+        <td>{{ ho.offence.offence_type }}</td>
+        <td>{{ ho.charge_type }}</td>
+        <td>{{ ho.offence.severity }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="3">No offences linked to this hearing.</td></tr>
+    {% endfor %}
+</table>
+
+<br>
+<a href="{% url 'justice:youngperson-list' %}" class="btn">Back to List</a>
+{% endblock %}

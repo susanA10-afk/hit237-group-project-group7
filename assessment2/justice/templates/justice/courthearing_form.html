@@ -1,0 +1,20 @@
+{% extends 'justice/base.html' %}
+
+{% block content %}
+<h1>Add Court Hearing</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn">Save</button>
+    <a href="{% url 'justice:youngperson-list' %}" class="btn">Cancel</a>
+</form>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var dateInput = document.querySelector('input[name="hearing_date"]');
+    if (dateInput) {
+        dateInput.type = 'datetime-local';
+    }
+});
+</script>
+{% endblock %}
