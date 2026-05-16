@@ -1,36 +1,212 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Youth Justice System</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Youth Justice System{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        nav { background: #333; padding: 10px; }
-        nav a { color: white; margin-right: 15px; text-decoration: none; }
-        .container { margin-top: 20px; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #333; color: white; }
-        .btn { padding: 8px 15px; background: #333; color: white; 
-               text-decoration: none; border: none; cursor: pointer; }
+        :root {
+            --navy:      #0f1e35;
+            --navy-mid:  #1a2e4a;
+            --navy-light:#243852;
+            --gold:      #c9a84c;
+            --gold-light:#e8c97a;
+            --surface:   #f4f6f9;
+            --white:     #ffffff;
+            --text:      #1e293b;
+            --text-muted:#64748b;
+            --border:    #e2e8f0;
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--surface);
+            color: var(--text);
+            margin: 0;
+            min-height: 100vh;
+        }
+        .gov-banner { background: var(--navy); border-bottom: 3px solid var(--gold); }
+        .gov-banner-inner {
+            display: flex; align-items: center;
+            justify-content: space-between; padding: 12px 24px;
+        }
+        .gov-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+        .gov-logo-badge {
+            width: 44px; height: 44px; background: var(--gold);
+            border-radius: 8px; display: flex; align-items: center;
+            justify-content: center; font-size: 22px;
+            color: var(--navy); font-weight: 700; flex-shrink: 0;
+        }
+        .gov-logo-text { color: var(--white); }
+        .gov-logo-text .dept {
+            font-size: 11px; font-weight: 400; color: var(--gold-light);
+            letter-spacing: 0.06em; text-transform: uppercase;
+        }
+        .gov-logo-text .system { font-size: 16px; font-weight: 600; line-height: 1.2; }
+        .gov-user-info {
+            display: flex; align-items: center; gap: 12px;
+            color: rgba(255,255,255,0.75); font-size: 13px;
+        }
+        .gov-user-info .username { color: var(--white); font-weight: 500; }
+        .gov-nav { background: var(--navy-mid); border-bottom: 1px solid var(--navy-light); }
+        .gov-nav .nav-inner {
+            display: flex; align-items: center;
+            padding: 0 24px; overflow-x: auto; gap: 2px;
+        }
+        .gov-nav a {
+            color: rgba(255,255,255,0.70); text-decoration: none;
+            font-size: 13px; font-weight: 500; padding: 11px 14px;
+            border-bottom: 3px solid transparent; white-space: nowrap;
+            display: flex; align-items: center; gap: 6px;
+            transition: color 0.15s, border-color 0.15s;
+        }
+        .gov-nav a:hover { color: var(--white); border-bottom-color: var(--gold); }
+        .gov-nav a i { font-size: 14px; }
+        .gov-nav .nav-divider {
+            width: 1px; height: 20px; background: var(--navy-light);
+            margin: 0 6px; flex-shrink: 0;
+        }
+        .gov-nav .nav-logout { margin-left: auto; color: rgba(255,255,255,0.5) !important; }
+        .gov-nav .nav-logout:hover { color: #ff6b6b !important; border-bottom-color: #ff6b6b !important; }
+        .page-wrapper { padding: 28px 24px; max-width: 1280px; margin: 0 auto; }
+        .page-header { margin-bottom: 28px; padding-bottom: 16px; border-bottom: 2px solid var(--border); }
+        .page-header h1 { font-size: 24px; font-weight: 700; color: var(--navy); margin: 0 0 4px 0; }
+        .page-header p { color: var(--text-muted); margin: 0; font-size: 14px; }
+        .card { border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); background: var(--white); }
+        .card-header-navy {
+            background: var(--navy); color: var(--white);
+            border-radius: 10px 10px 0 0 !important; padding: 14px 20px;
+            font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 8px;
+        }
+        .table thead th {
+            background: var(--navy); color: var(--white); font-weight: 500;
+            font-size: 13px; border: none; padding: 12px 16px;
+        }
+        .table tbody td { padding: 12px 16px; font-size: 14px; vertical-align: middle; border-color: var(--border); }
+        .table tbody tr:hover { background: #f8fafc; }
+        .btn-gov {
+            background: var(--navy); color: var(--white); border: none;
+            border-radius: 6px; padding: 8px 16px; font-size: 13px; font-weight: 500;
+            font-family: 'DM Sans', sans-serif; text-decoration: none;
+            display: inline-flex; align-items: center; gap: 6px;
+            cursor: pointer; transition: background 0.15s;
+        }
+        .btn-gov:hover { background: var(--navy-light); color: var(--white); }
+        .btn-gov-outline {
+            background: transparent; color: var(--navy);
+            border: 1.5px solid var(--navy); border-radius: 6px;
+            padding: 7px 15px; font-size: 13px; font-weight: 500;
+            font-family: 'DM Sans', sans-serif; text-decoration: none;
+            display: inline-flex; align-items: center; gap: 6px;
+            cursor: pointer; transition: all 0.15s;
+        }
+        .btn-gov-outline:hover { background: var(--navy); color: var(--white); }
+        .btn-gold {
+            background: var(--gold); color: var(--navy); border: none;
+            border-radius: 6px; padding: 8px 18px; font-size: 13px; font-weight: 600;
+            font-family: 'DM Sans', sans-serif; text-decoration: none;
+            display: inline-flex; align-items: center; gap: 6px;
+            cursor: pointer; transition: background 0.15s;
+        }
+        .btn-gold:hover { background: var(--gold-light); color: var(--navy); }
+        .badge-high-risk {
+            background: #fef2f2; color: #dc2626; border: 1px solid #fecaca;
+            border-radius: 20px; padding: 3px 10px; font-size: 12px; font-weight: 600;
+        }
+        .badge-active {
+            background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0;
+            border-radius: 20px; padding: 3px 10px; font-size: 12px; font-weight: 600;
+        }
+        .alert { border-radius: 8px; border-left: 4px solid; font-size: 14px; }
+        .form-label { font-weight: 500; font-size: 14px; color: var(--text); }
+        .form-control, .form-select {
+            border: 1.5px solid var(--border); border-radius: 6px;
+            font-size: 14px; font-family: 'DM Sans', sans-serif; transition: border-color 0.15s;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: var(--navy); box-shadow: 0 0 0 3px rgba(15,30,53,0.1);
+        }
+        .gov-footer {
+            background: var(--navy); color: rgba(255,255,255,0.45);
+            text-align: center; font-size: 12px; padding: 16px; margin-top: 48px;
+        }
+        .stat-card {
+            background: var(--white); border: 1px solid var(--border);
+            border-radius: 10px; padding: 20px; display: flex;
+            align-items: center; gap: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        }
+        .stat-icon {
+            width: 52px; height: 52px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px; flex-shrink: 0;
+        }
+        .stat-icon.navy  { background: #e8edf4; color: var(--navy); }
+        .stat-icon.gold  { background: #fdf6e3; color: #b8860b; }
+        .stat-icon.red   { background: #fef2f2; color: #dc2626; }
+        .stat-icon.green { background: #f0fdf4; color: #16a34a; }
+        .stat-value { font-size: 28px; font-weight: 700; color: var(--navy); line-height: 1; }
+        .stat-label { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="{% url 'justice:home' %}">Home</a>
-        <a href="{% url 'justice:youngperson-list' %}">Young Persons</a>
-        <a href="{% url 'justice:dashboard' %}">Dashboard</a>
-        <a href="{% url 'justice:youngperson-create' %}">Add Person</a>
-        <a href="{% url 'justice:caseworker-create' %}">Add Caseworker</a>
-        <a href="{% url 'justice:courthearing-create' %}">Add Hearing</a>
-        <a href="{% url 'justice:offence-create' %}">Add Offence</a>
-        <a href="{% url 'justice:intervention-create' %}">Add Intervention</a>
-        <a href="{% url 'justice:intervention-list' %}">Interventions</a>
-        <a href="{% url 'justice:stats' %}">Statistics</a>
-        <a href="{% url 'logout' %}">Logout</a>
-    </nav>
-    <div class="container">
-        {% block content %}
-        {% endblock %}
+
+<div class="gov-banner">
+    <div class="gov-banner-inner">
+        <a href="{% url 'justice:home' %}" class="gov-logo">
+            <div class="gov-logo-badge">YJ</div>
+            <div class="gov-logo-text">
+                <div class="dept">HIT237 — Group 7 Project</div>
+                <div class="system">Youth Justice Case Management System</div>
+            </div>
+        </a>
+        <div class="gov-user-info">
+            {% if user.is_authenticated %}
+                <i class="bi bi-person-circle"></i>
+                <span class="username">{{ user.username }}</span>
+                {% if user.role %}<span style="color:var(--gold-light)">· {{ user.get_role_display }}</span>{% endif %}
+            {% endif %}
+        </div>
     </div>
+</div>
+
+<nav class="gov-nav">
+    <div class="nav-inner">
+        <a href="{% url 'justice:home' %}"><i class="bi bi-house-door"></i> Home</a>
+        <a href="{% url 'justice:youngperson-list' %}"><i class="bi bi-people"></i> Young Persons</a>
+        <a href="{% url 'justice:dashboard' %}"><i class="bi bi-speedometer2"></i> Dashboard</a>
+        <a href="{% url 'justice:intervention-list' %}"><i class="bi bi-shield-check"></i> Interventions</a>
+        <a href="{% url 'justice:stats' %}"><i class="bi bi-bar-chart-line"></i> Statistics</a>
+        <div class="nav-divider"></div>
+        <a href="{% url 'justice:youngperson-create' %}"><i class="bi bi-person-plus"></i> Add Person</a>
+        <a href="{% url 'justice:caseworker-create' %}"><i class="bi bi-briefcase"></i> Add Caseworker</a>
+        <a href="{% url 'justice:offence-create' %}"><i class="bi bi-exclamation-triangle"></i>
+
+Add Offence</a>
+        <a href="{% url 'justice:intervention-create' %}"><i class="bi bi-plus-circle"></i> Add Intervention</a>
+        <a href="{% url 'justice:courthearing-create' %}"><i class="bi bi-bank"></i> Add Hearing</a>
+        <a href="{% url 'logout' %}" class="nav-logout"><i class="bi bi-box-arrow-right"></i> Logout</a>
+    </div>
+</nav>
+
+<div class="page-wrapper">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show mb-3" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% block content %}{% endblock %}
+</div>
+
+<div class="gov-footer">
+    Youth Justice Case Management System &nbsp;·&nbsp; HIT237 Group 7 &nbsp;·&nbsp; Charles Darwin University
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

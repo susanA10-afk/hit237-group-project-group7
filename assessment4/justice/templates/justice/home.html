@@ -1,46 +1,124 @@
 {% extends 'justice/base.html' %}
 
+{% block title %}Home{% endblock %}
+
 {% block content %}
-<h1>Youth Justice Case Management System</h1>
-<p>Northern Territory — Department of Youth Justice</p>
 
-<br>
+<div class="page-header">
+    <h1><i class="bi bi-house-door me-2" style="color:var(--gold)"></i>Welcome, {{ user.username }}</h1>
+    <p>Youth Justice Case Management System &nbsp;·&nbsp; HIT237 Group 7 &nbsp;·&nbsp; Charles Darwin University</p>
+</div>
 
-<table>
-    <tr>
-        <th>Feature</th>
-        <th>Description</th>
-        <th>Action</th>
-    </tr>
-    <tr>
-        <td>Young Persons</td>
-        <td>View and manage all young persons in the system</td>
-        <td><a href="{% url 'justice:youngperson-list' %}" class="btn">View</a></td>
-    </tr>
-    <tr>
-        <td>Dashboard</td>
-        <td>View high risk cases requiring immediate attention</td>
-        <td><a href="{% url 'justice:dashboard' %}" class="btn">View</a></td>
-    </tr>
-    <tr>
-        <td>Statistics</td>
-        <td>View system wide statistics and reports</td>
-        <td><a href="{% url 'justice:stats' %}" class="btn">View</a></td>
-    </tr>
-    <tr>
-        <td>Interventions</td>
-        <td>View and manage all interventions</td>
-        <td><a href="{% url 'justice:intervention-list' %}" class="btn">View</a></td>
-    </tr>
-</table>
+<div class="row g-3 mb-4">
+    <div class="col-sm-6 col-lg-3">
+        <div class="stat-card">
+            <div class="stat-icon navy"><i class="bi bi-people-fill"></i></div>
+            <div>
+                <div class="stat-value">{{ stats.total_persons|default:"0" }}</div>
+                <div class="stat-label">Young Persons</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="stat-card">
+            <div class="stat-icon red"><i class="bi bi-exclamation-diamond-fill"></i></div>
+            <div>
+                <div class="stat-value">{{ stats.high_risk|default:"0" }}</div>
+                <div class="stat-label">High Risk Cases</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="stat-card">
+            <div class="stat-icon green"><i class="bi bi-shield-check-fill"></i></div>
+            <div>
+                <div class="stat-value">{{ stats.active_interventions|default:"0" }}</div>
+                <div class="stat-label">Active Interventions</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="stat-card">
+            <div class="stat-icon gold"><i class="bi bi-bank2"></i></div>
+            <div>
+                <div class="stat-value">{{ stats.upcoming_hearings|default:"0" }}</div>
+                <div class="stat-label">Upcoming Hearings</div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<br>
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header-navy">
+                <i class="bi bi-grid-3x3-gap"></i> System Features
+            </div>
+            <div class="table-responsive">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th style="width:30%">Feature</th>
+                            <th>Description</th>
+                            <th style="width:100px">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><i class="bi bi-people me-2" style="color:var(--navy)"></i><strong>Young Persons</strong></td>
+                            <td style="color:var(--text-muted)">View and manage all young persons registered in the system</td>
+                            <td><a href="{% url 'justice:youngperson-list' %}" class="btn-gov">View</a></td>
+                        </tr>
+                        <tr>
+                            <td><i class="bi bi-speedometer2 me-2" style="color:#dc2626"></i><strong>Dashboard</strong></td>
+                            <td style="color:var(--text-muted)">High risk cases requiring immediate caseworker attention</td>
+                            <td><a href="{% url 'justice:dashboard' %}" class="btn-gov">View</a></td>
+                        </tr>
+                        <tr>
+                            <td><i class="bi bi-bar-chart-line me-2" style="color:#16a34a"></i><strong>Statistics</strong></td>
+                            <td style="color:var(--text-muted)">System-wide statistics, reports and analytics</td>
+                            <td><a href="{% url 'justice:stats' %}" class="btn-gov">View</a></td>
+                        </tr>
+                        <tr>
+                            <td><i class="bi bi-shield-check me-2" style="color:#b8860b"></i><strong>Interventions</strong></td>
+                            <td style="color:var(--text-muted)">View and manage all intervention programmes</td>
+                            <td><a href="{% url 'justice:intervention-list' %}" class="btn-gov">View</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
-<h2>Quick Actions</h2>
-<br>
-<a href="{% url 'justice:youngperson-create' %}" class="btn">Add Young Person</a>
-<a href="{% url 'justice:offence-create' %}" class="btn">Add Offence</a>
-<a href="{% url 'justice:intervention-create' %}" class="btn">Add Intervention</a>
-<a href="{% url 'justice:courthearing-create' %}" class="btn">Add Court Hearing</a>
+    <div class="col-lg-4">
+        <div class="card h-100">
+            <div class="card-header-navy">
+                <i class="bi bi-lightning-charge"></i> Quick Actions
+            </div>
+            <div class="card-body d-flex flex-column gap-2 p-3">
+                <a href="{% url 'justice:youngperson-create' %}" class="btn-gov w-100 justify-content-start">
+                    <i class="bi bi-person-plus-fill"></i> Add Young Person
+                </a>
+                <a href="{% url 'justice:offence-create' %}" class="btn-gov-outline w-100 justify-content-start">
+                    <i class="bi bi-exclamation-triangle-fill"></i> Add Offence
+                </a>
+                <a href="{% url 'justice:intervention-create' %}" class="btn-gov-outline w-100 justify-content-start">
+                    <i class="bi bi-plus-circle-fill"></i> Add Intervention
+                </a>
+                <a href="{% url 'justice:courthearing-create' %}" class="btn-gov-outline w-100 justify-content-start">
+                    <i class="bi bi-bank2"></i> Add Court Hearing
+                </a>
+                <a href="{% url 'justice:caseworker-create' %}" class="btn-gov-outline w-100 justify-content-start">
+                    <i class="bi bi-briefcase-fill"></i> Add Caseworker
+                </a>
+                <div class="mt-auto pt-2" style="border-top:1px solid var(--border)">
+                    <a href="{% url 'justice:stats' %}" class="btn-gold w-100 justify-content-center">
+                        <i class="bi bi-bar-chart-line-fill"></i> View Full Report
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
