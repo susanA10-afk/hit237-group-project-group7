@@ -24,6 +24,17 @@ from .exceptions import (
     InterventionLimitExceeded
 )
 
+class AdminRequiredMixin(LoginRequiredMixin):
+    """Only admin users can access this view."""
+    
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
+        if hasattr(request.user, 'role') and request.user.role != 'admin':
+            messages.error(request, "You do not have permission to access this page.")
+            return redirect('justice:youngperson-list')
+        return super().dispatch(request, *args, **kwargs)
+
 
 class YoungPersonListView(LoginRequiredMixin, ListView):
     model = YoungPerson
@@ -32,17 +43,22 @@ class YoungPersonListView(LoginRequiredMixin, ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        queryset = get_all_young_persons().annotate(
-            offence_count=Count('offences')
+    queryset = get_all_young_persons().annotate(
+        offence_count=Count('offences')
+    )
+    # Role based filtering
+    if hasattr(self.request.user, 'caseworker'):
+        queryset = queryset.filter(
+            caseworkers=self.request.user.caseworker
         )
-        search = self.request.GET.get('search')
-        if search:
-            queryset = queryset.filter(
-                first_name__icontains=search
-            ) | queryset.filter(
-                last_name__icontains=search
-            )
-        return queryset
+    search = self.request.GET.get('search')
+    if search:
+        queryset = queryset.filter(
+            first_name__icontains=search
+        ) | queryset.filter(
+            last_name__icontains=search
+        )
+    return queryset
 
 
 class YoungPersonDetailView(LoginRequiredMixin, DetailView):
@@ -143,7 +159,7 @@ class CaseWorkerCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('justice:youngperson-list')
 
 
-class StatsDashboardView(LoginRequiredMixin, View):
+class StatsDashboardView(AdminRequiredMixin, View):
     def get(self, request):
         stats = get_dashboard_stats()
         return render(request, 'justice/stats.html', {'stats': stats})
