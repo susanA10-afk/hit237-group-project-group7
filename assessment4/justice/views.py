@@ -43,23 +43,21 @@ class YoungPersonListView(LoginRequiredMixin, ListView):
     paginate_by = 10
 
     def get_queryset(self):
-    queryset = get_all_young_persons().annotate(
-        offence_count=Count('offences')
-    )
-    # Role based filtering
-    if hasattr(self.request.user, 'caseworker'):
-        queryset = queryset.filter(
-            caseworkers=self.request.user.caseworker
+        queryset = get_all_young_persons().annotate(
+            offence_count=Count('offences')
         )
-    search = self.request.GET.get('search')
-    if search:
-        queryset = queryset.filter(
-            first_name__icontains=search
-        ) | queryset.filter(
-            last_name__icontains=search
-        )
-    return queryset
-
+        if hasattr(self.request.user, 'caseworker'):
+            queryset = queryset.filter(
+                caseworkers=self.request.user.caseworker
+            )
+        search = self.request.GET.get('search')
+        if search:
+            queryset = queryset.filter(
+                first_name__icontains=search
+            ) | queryset.filter(
+                last_name__icontains=search
+            )
+        return queryset
 
 class YoungPersonDetailView(LoginRequiredMixin, DetailView):
     model = YoungPerson
