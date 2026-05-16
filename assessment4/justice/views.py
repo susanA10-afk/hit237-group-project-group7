@@ -161,3 +161,7 @@ class StatsDashboardView(AdminRequiredMixin, View):
     def get(self, request):
         stats = get_dashboard_stats()
         return render(request, 'justice/stats.html', {'stats': stats})
+    
+class HomeView(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request, 'justice/home.html')

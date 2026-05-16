@@ -4,6 +4,7 @@ from . import views
 app_name = 'justice'
 
 urlpatterns = [
+    path('', views.HomeView.as_view(), name='home'),
     path('', views.YoungPersonListView.as_view(), name='home'),
     path('youngperson/', views.YoungPersonListView.as_view(), name='youngperson-list'),
     path('youngperson/<int:pk>/', views.YoungPersonDetailView.as_view(), name='youngperson-detail'),

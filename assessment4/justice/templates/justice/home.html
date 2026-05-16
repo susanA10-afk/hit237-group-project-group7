@@ -1,0 +1,46 @@
+{% extends 'justice/base.html' %}
+
+{% block content %}
+<h1>Youth Justice Case Management System</h1>
+<p>Northern Territory — Department of Youth Justice</p>
+
+<br>
+
+<table>
+    <tr>
+        <th>Feature</th>
+        <th>Description</th>
+        <th>Action</th>
+    </tr>
+    <tr>
+        <td>Young Persons</td>
+        <td>View and manage all young persons in the system</td>
+        <td><a href="{% url 'justice:youngperson-list' %}" class="btn">View</a></td>
+    </tr>
+    <tr>
+        <td>Dashboard</td>
+        <td>View high risk cases requiring immediate attention</td>
+        <td><a href="{% url 'justice:dashboard' %}" class="btn">View</a></td>
+    </tr>
+    <tr>
+        <td>Statistics</td>
+        <td>View system wide statistics and reports</td>
+        <td><a href="{% url 'justice:stats' %}" class="btn">View</a></td>
+    </tr>
+    <tr>
+        <td>Interventions</td>
+        <td>View and manage all interventions</td>
+        <td><a href="{% url 'justice:intervention-list' %}" class="btn">View</a></td>
+    </tr>
+</table>
+
+<br>
+
+<h2>Quick Actions</h2>
+<br>
+<a href="{% url 'justice:youngperson-create' %}" class="btn">Add Young Person</a>
+<a href="{% url 'justice:offence-create' %}" class="btn">Add Offence</a>
+<a href="{% url 'justice:intervention-create' %}" class="btn">Add Intervention</a>
+<a href="{% url 'justice:courthearing-create' %}" class="btn">Add Court Hearing</a>
+
+{% endblock %}
