@@ -1,37 +1,61 @@
 {% extends 'justice/base.html' %}
 
+{% block title %}Interventions{% endblock %}
+
 {% block content %}
-<h1>Interventions</h1>
-<a href="{% url 'justice:intervention-create' %}" class="btn">Add New Intervention</a>
-<br><br>
-<table>
-    <tr>
-        <th>Young Person</th>
-        <th>Type</th>
-        <th>Assigned Worker</th>
-        <th>Start Date</th>
-        <th>Status</th>
-    </tr>
-    {% for intervention in interventions %}
-    <tr>
-        <td>{{ intervention.young_person }}</td>
-        <td>{{ intervention.intervention_type }}</td>
-        <td>{{ intervention.assigned_worker }}</td>
-        <td>{{ intervention.start_date }}</td>
-        <td>
-            {% if intervention.status == 'active' %}
-                <span style="background:#d4edda; color:#155724; padding:3px 8px; border-radius:4px;">Active</span>
-            {% elif intervention.status == 'completed' %}
-                <span style="background:#cce5ff; color:#004085; padding:3px 8px; border-radius:4px;">Completed</span>
-            {% else %}
-                <span style="background:#f8d7da; color:#721c24; padding:3px 8px; border-radius:4px;">Discontinued</span>
-            {% endif %}
-        </td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td colspan="5">No interventions found.</td>
-    </tr>
-    {% endfor %}
-</table>
+<div class="page-header">
+    <h1>Interventions</h1>
+    <p>All intervention programmes in the system</p>
+</div>
+
+<div class="mb-3">
+    <a href="{% url 'justice:intervention-create' %}" class="btn-gov">
+        <i class="bi bi-plus-circle-fill"></i> Add New Intervention
+    </a>
+</div>
+
+<div class="card">
+    <div class="card-header-navy">
+        <i class="bi bi-shield-check"></i> Intervention List
+    </div>
+    <div class="table-responsive">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th>Young Person</th>
+                    <th>Type</th>
+                    <th>Assigned Worker</th>
+                    <th>Start Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for intervention in interventions %}
+                <tr>
+                    <td><strong>{{ intervention.young_person }}</strong></td>
+                    <td>{{ intervention.intervention_type }}</td>
+                    <td>{{ intervention.assigned_worker }}</td>
+                    <td>{{ intervention.start_date }}</td>
+                    <td>
+                        {% if intervention.status == 'active' %}
+                            <span class="badge-active">Active</span>
+                        {% elif intervention.status == 'completed' %}
+                            <span style="background:#e0f0ff; color:#004085; border:1px solid #b8daff; border-radius:20px; padding:3px 10px; font-size:12px; font-weight:600;">Completed</span>
+                        {% else %}
+                            <span class="badge-high-risk">Discontinued</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" style="text-align:center; color:var(--text-muted); padding:32px">
+                        No interventions found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<br><br><br>
 {% endblock %}

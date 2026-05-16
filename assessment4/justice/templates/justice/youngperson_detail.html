@@ -1,68 +1,156 @@
 {% extends 'justice/base.html' %}
 
+{% block title %}{{ youngperson.first_name }} {{ youngperson.last_name }}{% endblock %}
+
 {% block content %}
-<h1>{{ youngperson.first_name }} {{ youngperson.last_name }}</h1>
+<div class="page-header">
+    <h1>{{ youngperson.first_name }} {{ youngperson.last_name }}</h1>
+    <p>Young Person Profile</p>
+</div>
 
-<h2>Personal Details</h2>
-<table>
-    <tr><th>Date of Birth</th><td>{{ youngperson.date_of_birth }}</td></tr>
-    <tr><th>Age</th><td>{{ youngperson.age }}</td></tr>
-    <tr><th>Gender</th><td>{{ youngperson.gender }}</td></tr>
-    <tr><th>Postcode</th><td>{{ youngperson.postcode }}</td></tr>
-    <tr>
-    <th>Risk Level</th>
-    <td>
-        {% if youngperson.risk_level == 'high' %}
-            <span style="background:#ffcccc; color:#cc0000; padding:3px 8px; border-radius:4px; font-weight:bold;">High</span>
-        {% elif youngperson.risk_level == 'medium' %}
-            <span style="background:#fff3cd; color:#856404; padding:3px 8px; border-radius:4px; font-weight:bold;">Medium</span>
-        {% else %}
-            <span style="background:#d4edda; color:#155724; padding:3px 8px; border-radius:4px; font-weight:bold;">Low</span>
-        {% endif %}
-    </td>
-    </tr>
-</table>
+<div class="row g-4">
 
-<h2>Offences</h2>
-<table>
-    <tr>
-        <th>Type</th>
-        <th>Date</th>
-        <th>Severity</th>
-        <th>Location</th>
-    </tr>
-    {% for offence in youngperson.offences.all %}
-    <tr>
-        <td>{{ offence.offence_type }}</td>
-        <td>{{ offence.date_of_offence }}</td>
-        <td>{{ offence.severity }}</td>
-        <td>{{ offence.location }}</td>
-    </tr>
-    {% empty %}
-    <tr><td colspan="4">No offences recorded.</td></tr>
-    {% endfor %}
-</table>
+    <!-- Personal Details -->
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header-navy">
+                <i class="bi bi-person"></i> Personal Details
+            </div>
+            <div class="table-responsive">
+                <table class="table mb-0">
+                    <tbody>
+                        <tr>
+                            <td style="color:var(--text-muted); width:45%">Date of Birth</td>
+                            <td><strong>{{ youngperson.date_of_birth }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-muted)">Age</td>
+                            <td><strong>{{ youngperson.age }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-muted)">Gender</td>
+                            <td><strong>{{ youngperson.gender }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-muted)">Postcode</td>
+                            <td><strong>{{ youngperson.postcode }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-muted)">Risk Level</td>
+                            <td>
+                                {% if youngperson.risk_level == 'high' %}
+                                    <span class="badge-high-risk">High</span>
+                                {% elif youngperson.risk_level == 'medium' %}
+                                    <span style="background:#fff3cd; color:#856404; border:1px solid #ffc107; border-radius:20px; padding:3px 10px; font-size:12px; font-weight:600;">Medium</span>
+                                {% else %}
+                                    <span class="badge-active">Low</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
-<h2>Interventions</h2>
-<table>
-    <tr>
-        <th>Type</th>
-        <th>Status</th>
-        <th>Start Date</th>
-        <th>End Date</th>
-    </tr>
-    {% for intervention in youngperson.interventions.all %}
-    <tr>
-        <td>{{ intervention.intervention_type }}</td>
-        <td>{{ intervention.status }}</td>
-        <td>{{ intervention.start_date }}</td>
-        <td>{{ intervention.end_date }}</td>
-    </tr>
-    {% empty %}
-    <tr><td colspan="4">No interventions recorded.</td></tr>
-    {% endfor %}
-</table>
+    <!-- Offences -->
+    <div class="col-lg-8">
+        <div class="card mb-4">
+            <div class="card-header-navy">
+                <i class="bi bi-exclamation-triangle"></i> Offences
+            </div>
+            <div class="table-responsive">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Date</th>
+                            <th>Severity</th>
+                            <th>Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for offence in youngperson.offences.all %}
+                        <tr>
+                            <td>{{ offence.offence_type }}</td>
+                            <td>{{ offence.date_of_offence }}</td>
+                            <td>
+                                {% if offence.severity == 'high' or offence.severity == 'serious' %}
+                                    <span class="badge-high-risk">{{ offence.severity|title }}</span>
+                                {% else %}
+                                    <span class="badge-active">{{ offence.severity|title }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ offence.location }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" style="text-align:center; color:var(--text-muted); padding:24px">
+                                No offences recorded.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-<br>
-<a href="{% url 'justice:youngperson-list' %}" class="btn">Back to List</a>
+        <!-- Interventions -->
+        <div class="card">
+            <div class="card-header-navy">
+                <i class="bi bi-shield-check"></i> Interventions
+            </div>
+            <div class="table-responsive">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for intervention in youngperson.interventions.all %}
+                        <tr>
+                            <td>{{ intervention.intervention_type }}</td>
+                            <td>
+                                {% if intervention.status == 'active' %}
+                                    <span class="badge-active">Active</span>
+                                {% elif intervention.status == 'completed' %}
+                                    <span style="background:#e0f0ff; color:#004085; border:1px solid #b8daff; border-radius:20px; padding:3px 10px; font-size:12px; font-weight:600;">Completed</span>
+                                {% else %}
+                                    <span class="badge-high-risk">Discontinued</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ intervention.start_date }}</td>
+                            <td>{{ intervention.end_date|default:"Ongoing" }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" style="text-align:center; color:var(--text-muted); padding:24px">
+                                No interventions recorded.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="mt-3 d-flex gap-2">
+    <a href="{% url 'justice:youngperson-list' %}" class="btn-gov-outline">
+        <i class="bi bi-arrow-left"></i> Back to List
+    </a>
+    <a href="{% url 'justice:offence-create' %}" class="btn-gov">
+        <i class="bi bi-plus"></i> Add Offence
+    </a>
+    <a href="{% url 'justice:intervention-create' %}" class="btn-gov">
+        <i class="bi bi-plus"></i> Add Intervention
+    </a>
+</div>
+<br><br><br>
 {% endblock %}

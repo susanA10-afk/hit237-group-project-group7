@@ -157,7 +157,7 @@ class CaseWorkerCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('justice:youngperson-list')
 
 
-class StatsDashboardView(AdminRequiredMixin, View):
+class StatsDashboardView(LoginRequiredMixin, View):
     def get(self, request):
         stats = get_dashboard_stats()
         return render(request, 'justice/stats.html', {'stats': stats})

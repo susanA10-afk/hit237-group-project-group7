@@ -1,34 +1,52 @@
 {% extends 'justice/base.html' %}
 
-{% block content %}
-<h1>Caseworker Dashboard</h1>
-<h2>High Risk Young Persons</h2>
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Postcode</th>
-        <th>Total Offences</th>
-        <th>Actions</th>
-    </tr>
-    {% for person in youngpeople %}
-    <tr>
-        <td>{{ person.first_name }} {{ person.last_name }}</td>
-        <td>{{ person.age }}</td>
-        <td>{{ person.postcode }}</td>
-        <td>{{ person.offences.count }}</td>
-        <td>
-            <a href="{% url 'justice:youngperson-detail' person.pk %}">View</a>
-        </td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td colspan="5">No high risk persons found.</td>
-    </tr>
-    {% endfor %}
-</table>
+{% block title %}Dashboard{% endblock %}
 
-<br>
-<a href="{% url 'justice:youngperson-list' %}" class="btn">View All Persons</a>
-<a href="{% url 'justice:youngperson-create' %}" class="btn">Add New Person</a>
+{% block content %}
+<div class="page-header">
+    <h1>Caseworker Dashboard</h1>
+    <p>High risk young persons requiring immediate attention</p>
+</div>
+
+<div class="card">
+    <div class="card-header-navy">
+        <i class="bi bi-exclamation-diamond"></i> High Risk Young Persons
+    </div>
+    <div class="table-responsive">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Postcode</th>
+                    <th>Total Offences</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for person in youngpeople %}
+                <tr>
+                    <td><strong>{{ person.first_name }} {{ person.last_name }}</strong></td>
+                    <td>{{ person.age }}</td>
+                    <td>{{ person.postcode }}</td>
+                    <td><span class="badge-high-risk">{{ person.offences.count }}</span></td>
+                    <td><a href="{% url 'justice:youngperson-detail' person.pk %}" class="btn-gov">View</a></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" style="text-align:center; color:var(--text-muted); padding:32px">
+                        No high risk persons found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="mt-3 d-flex gap-2">
+    <a href="{% url 'justice:youngperson-list' %}" class="btn-gov-outline">View All Persons</a>
+    <a href="{% url 'justice:youngperson-create' %}" class="btn-gov">Add New Person</a>
+</div>
+<br><br><br>
 {% endblock %}

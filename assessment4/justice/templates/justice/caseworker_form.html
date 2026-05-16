@@ -1,11 +1,22 @@
 {% extends 'justice/base.html' %}
 
+{% block title %}Add Caseworker{% endblock %}
+
 {% block content %}
-<h1>Add Case Worker</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn">Save</button>
-    <a href="{% url 'justice:youngperson-list' %}" class="btn">Cancel</a>
-</form>
+<div class="page-header">
+    <h1>Add Case Worker</h1>
+</div>
+<div class="card" style="max-width:600px">
+    <div class="card-header-navy"><i class="bi bi-briefcase"></i> Caseworker Details</div>
+    <div class="card-body p-4">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <br>
+            <button type="submit" class="btn-gov">Save</button>
+            <a href="{% url 'justice:youngperson-list' %}" class="btn-gov-outline">Cancel</a>
+        </form>
+    </div>
+</div>
+<br><br><br>
 {% endblock %}

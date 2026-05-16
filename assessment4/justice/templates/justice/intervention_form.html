@@ -1,20 +1,30 @@
 {% extends 'justice/base.html' %}
 
-{% block content %}
-<h1>{% if object %}Update Intervention{% else %}Add New Intervention{% endif %}</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn">Save</button>
-    <a href="{% url 'justice:youngperson-list' %}" class="btn">Cancel</a>
-</form>
+{% block title %}Add Intervention{% endblock %}
 
+{% block content %}
+<div class="page-header">
+    <h1>Add New Intervention</h1>
+</div>
+<div class="card" style="max-width:600px">
+    <div class="card-header-navy"><i class="bi bi-shield-check"></i> Intervention Details</div>
+    <div class="card-body p-4">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <br>
+            <button type="submit" class="btn-gov">Save</button>
+            <a href="{% url 'justice:youngperson-list' %}" class="btn-gov-outline">Cancel</a>
+        </form>
+    </div>
+</div>
+<br><br><br>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    var startDate = document.querySelector('input[name="start_date"]');
-    var endDate = document.querySelector('input[name="end_date"]');
-    if (startDate) { startDate.type = 'date'; }
-    if (endDate) { endDate.type = 'date'; }
+    var start = document.querySelector('input[name="start_date"]');
+    var end = document.querySelector('input[name="end_date"]');
+    if (start) { start.type = 'date'; }
+    if (end) { end.type = 'date'; }
 });
 </script>
 {% endblock %}

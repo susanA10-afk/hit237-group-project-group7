@@ -1,20 +1,28 @@
 {% extends 'justice/base.html' %}
 
-{% block content %}
-<h1>Add New Young Person</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn">Save</button>
-    <a href="{% url 'justice:youngperson-list' %}" class="btn">Cancel</a>
-</form>
+{% block title %}Add Young Person{% endblock %}
 
+{% block content %}
+<div class="page-header">
+    <h1>Add New Young Person</h1>
+</div>
+<div class="card" style="max-width:600px">
+    <div class="card-header-navy"><i class="bi bi-person-plus"></i> Person Details</div>
+    <div class="card-body p-4">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <br>
+            <button type="submit" class="btn-gov">Save</button>
+            <a href="{% url 'justice:youngperson-list' %}" class="btn-gov-outline">Cancel</a>
+        </form>
+    </div>
+</div>
+<br><br><br>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    var dateInput = document.querySelector('input[name="date_of_birth"]');
-    if (dateInput) {
-        dateInput.type = 'date';
-    }
+    var dob = document.querySelector('input[name="date_of_birth"]');
+    if (dob) { dob.type = 'date'; }
 });
 </script>
 {% endblock %}

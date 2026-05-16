@@ -1,66 +1,87 @@
 {% extends 'justice/base.html' %}
 
+{% block title %}Young Persons{% endblock %}
+
 {% block content %}
-<h1>Young Persons</h1>
+<div class="page-header">
+    <h1>Young Persons</h1>
+    <p>All young persons registered in the system</p>
+</div>
 
-<form method="get">
-    <input type="text" name="search" 
-           placeholder="Search by name..." 
-           value="{{ request.GET.search }}">
-    <button type="submit" class="btn">Search</button>
-</form>
-<br>
-
-<a href="{% url 'justice:youngperson-create' %}" class="btn">Add New Person</a>
-<br><br>
-
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Risk Level</th>
-        <th>Postcode</th>
-        <th>Total Offences</th>
-        <th>Actions</th>
-    </tr>
-    {% for person in youngpeople %}
-    <tr>
-        <td>{{ person.first_name }} {{ person.last_name }}</td>
-        <td>{{ person.age }}</td>
-
-        <td>
-            {% if person.risk_level == 'high' %}
-            <span style="background:#ffcccc; color:#cc0000; padding:3px 8px; border-radius:4px; font-weight:bold;">High</span>
-            {% elif person.risk_level == 'medium' %}
-            <span style="background:#fff3cd; color:#856404; padding:3px 8px; border-radius:4px; font-weight:bold;">Medium</span>
-            {% else %}
-            <span style="background:#d4edda; color:#155724; padding:3px 8px; border-radius:4px; font-weight:bold;">Low</span>
+<div class="card mb-4">
+    <div class="card-body p-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <form method="get" class="d-flex gap-2">
+            <input type="text" name="search" placeholder="Search by name..."
+                   value="{{ request.GET.search }}" class="form-control" style="width:250px">
+            <button type="submit" class="btn-gov">Search</button>
+            {% if request.GET.search %}
+                <a href="{% url 'justice:youngperson-list' %}" class="btn-gov-outline">Clear</a>
             {% endif %}
-        </td>
-        <td>{{ person.postcode }}</td>
-        <td>{{ person.offence_count }}</td>
-        <td>
-            <a href="{% url 'justice:youngperson-detail' person.pk %}">View</a>
-        </td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td colspan="6">No young persons found.</td>
-    </tr>
-    {% endfor %}
-</table>
-<br>
+        </form>
+        <a href="{% url 'justice:youngperson-create' %}" class="btn-gov">
+            <i class="bi bi-person-plus-fill"></i> Add New Person
+        </a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header-navy">
+        <i class="bi bi-people"></i> Young Persons List
+    </div>
+    <div class="table-responsive">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Risk Level</th>
+                    <th>Postcode</th>
+                    <th>Total Offences</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for person in youngpeople %}
+                <tr>
+                    <td><strong>{{ person.first_name }} {{ person.last_name }}</strong></td>
+                    <td>{{ person.age }}</td>
+                    <td>
+                        {% if person.risk_level == 'high' %}
+                            <span class="badge-high-risk">High</span>
+                        {% elif person.risk_level == 'medium' %}
+                            <span style="background:#fff3cd; color:#856404; border:1px solid #ffc107; border-radius:20px; padding:3px 10px; font-size:12px; font-weight:600;">Medium</span>
+                        {% else %}
+                            <span class="badge-active">Low</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ person.postcode }}</td>
+                    <td>{{ person.offence_count }}</td>
+                    <td><a href="{% url 'justice:youngperson-detail' person.pk %}" class="btn-gov">View</a></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" style="text-align:center; color:var(--text-muted); padding:32px">
+                        No young persons found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
 {% if is_paginated %}
-<div>
+<div class="mt-3 d-flex align-items-center gap-2">
     {% if page_obj.has_previous %}
-        <a href="?page={{ page_obj.previous_page_number }}" class="btn">Previous</a>
+        <a href="?page={{ page_obj.previous_page_number }}" class="btn-gov-outline">Previous</a>
     {% endif %}
-    
-    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
-    
+    <span style="color:var(--text-muted); font-size:14px">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+    </span>
     {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}" class="btn">Next</a>
+        <a href="?page={{ page_obj.next_page_number }}" class="btn-gov">Next</a>
     {% endif %}
 </div>
 {% endif %}
+<br><br><br>
 {% endblock %}

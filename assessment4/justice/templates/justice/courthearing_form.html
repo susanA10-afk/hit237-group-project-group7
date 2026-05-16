@@ -1,20 +1,28 @@
 {% extends 'justice/base.html' %}
 
-{% block content %}
-<h1>Add Court Hearing</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn">Save</button>
-    <a href="{% url 'justice:youngperson-list' %}" class="btn">Cancel</a>
-</form>
+{% block title %}Add Court Hearing{% endblock %}
 
+{% block content %}
+<div class="page-header">
+    <h1>Add Court Hearing</h1>
+</div>
+<div class="card" style="max-width:600px">
+    <div class="card-header-navy"><i class="bi bi-bank"></i> Hearing Details</div>
+    <div class="card-body p-4">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <br>
+            <button type="submit" class="btn-gov">Save</button>
+            <a href="{% url 'justice:youngperson-list' %}" class="btn-gov-outline">Cancel</a>
+        </form>
+    </div>
+</div>
+<br><br><br>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    var dateInput = document.querySelector('input[name="hearing_date"]');
-    if (dateInput) {
-        dateInput.type = 'datetime-local';
-    }
+    var hearing = document.querySelector('input[name="hearing_date"]');
+    if (hearing) { hearing.type = 'datetime-local'; }
 });
 </script>
 {% endblock %}
