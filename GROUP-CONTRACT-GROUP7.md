@@ -91,15 +91,15 @@ for understanding the work.
 
 | Task | Who | Target | Status |
 |------|-----|--------|--------|
-| Group setup and GitHub repo | All | Week 2 | ✅ Done |
-| Group contract first version | Susan | Week 3 | ✅ Done |
-| Django project and models | Milan | Week 6 | ✅ Done |
-| ADR-001 to ADR-006 written | Susan | Apr 12 | ✅ Done |
-| ERD and class diagram | Subodh | Apr 13 | ✅ Done |
-| Views and URLs | Milan | Apr 13 | ✅ Done |
-| Templates | Sisan | Apr 14 | ✅ Done |
-| ADR line references added | Susan | Apr 15 | ✅ Done |
-| Assessment 2 submission | All | Apr 16 | ✅ Done |
+| Group setup and GitHub repo | All | Week 2 |  Done |
+| Group contract first version | Susan | Week 3 |  Done |
+| Django project and models | Milan | Week 6 |  Done |
+| ADR-001 to ADR-006 written | Susan | Apr 12 |  Done |
+| ERD and class diagram | Subodh | Apr 13 |  Done |
+| Views and URLs | Milan | Apr 13 |  Done |
+| Templates | Sisan | Apr 14 |  Done |
+| ADR line references added | Susan | Apr 15 |  Done |
+| Assessment 2 submission | All | Apr 16 |  Done |
 
 ---
 
@@ -107,22 +107,22 @@ for understanding the work.
 
 | Task | Who | Target | Status |
 |------|-----|--------|--------|
-| assessment4/ folder structure set up | Milan | May 14 | ✅ Done |
-| accounts app with CustomUser model | Milan | May 14 | ✅ Done |
-| justice/services.py with service layer | Milan | May 14 | ✅ Done |
-| justice/exceptions.py with custom exceptions | Milan | May 14 | ✅ Done |
-| Views updated with LoginRequiredMixin and role checks | Milan | May 14 | ✅ Done |
-| Statistics dashboard page | Milan | May 14 | ✅ Done |
-| ADR-007 to ADR-011 written | Susan | May 18 | 🔄 In progress |
-| Group contract updated with A4 milestones | Susan | May 18 | 🔄 In progress |
-| ERD updated to include CustomUser model | Subodh | May 21 | ⏳ Pending |
-| Class diagram updated with service layer | Subodh | May 21 | ⏳ Pending |
-| Sequence diagram for authentication flow | Subodh | May 21 | ⏳ Pending |
-| justice/tests.py — service and view tests | Sisan | May 22 | ⏳ Pending |
-| accounts/tests.py — auth and model tests | Sisan | May 22 | ⏳ Pending |
-| Test screenshots committed to evidence/ | Sisan | May 22 | ⏳ Pending |
-| Final team review — app runs from scratch | All | May 27 | ⏳ Pending |
-| GitHub URL submitted on Learnline | All | May 28 | ⏳ Pending |
+| assessment4/ folder structure set up | Milan | May 14 |  Done |
+| accounts app with CustomUser model | Milan | May 14 |  Done |
+| justice/services.py with service layer | Milan | May 14 |  Done |
+| justice/exceptions.py with custom exceptions | Milan | May 14 |  Done |
+| Views updated with LoginRequiredMixin and role checks | Milan | May 14 |  Done |
+| Statistics dashboard page | Milan | May 14 |  Done |
+| ADR-007 to ADR-011 written | Susan | May 18 |  Done |
+| Group contract updated with A4 milestones | Susan | May 18 | Done |
+| ERD updated to include CustomUser model | Subodh | May 21 |  Pending |
+| Class diagram updated with service layer | Subodh | May 21 |  Pending |
+| Sequence diagram for authentication flow | Subodh | May 21 |  Pending |
+| justice/tests.py — service and view tests | Sisan | May 22 |  Pending |
+| accounts/tests.py — auth and model tests | Sisan | May 22 |  Pending |
+| Test screenshots committed to evidence/ | Sisan | May 22 |  Pending |
+| Final team review — app runs from scratch | All | May 27 |  Pending |
+| GitHub URL submitted on Learnline | All | May 28 |  Pending |
 
 ---
 
