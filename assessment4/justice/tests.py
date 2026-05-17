@@ -190,3 +190,37 @@ class AuthenticatedViewTest(TestCase):
     def test_logged_in_user_can_access_dashboard(self):
         response = self.client.get(reverse('justice:dashboard'))
         self.assertEqual(response.status_code, 200)
+
+class InterventionLimitTest(TestCase):
+
+    def setUp(self):
+        self.user = User.objects.create_user(
+            username='worker', password='pass123'
+        )
+        self.caseworker = CaseWorker.objects.create(
+            user=self.user,
+            employee_id='EMP001',
+            phone='0400000000',
+            department='Justice'
+        )
+        self.person = YoungPerson.objects.create(
+            first_name="John", last_name="Smith",
+            date_of_birth="2005-01-01", gender="Male",
+            postcode="0800", risk_level="high"
+        )
+
+    def test_intervention_limit_exceeded_raises_exception(self):
+        for i in range(3):
+            assign_intervention(self.person.pk, self.caseworker, {
+                'intervention_type': f'Type {i}',
+                'start_date': '2024-01-01',
+                'status': 'active',
+                'outcome': ''
+            })
+        with self.assertRaises(InterventionLimitExceeded):
+            assign_intervention(self.person.pk, self.caseworker, {
+                'intervention_type': 'One too many',
+                'start_date': '2024-01-01',
+                'status': 'active',
+                'outcome': ''
+            })

@@ -14,7 +14,7 @@
         <div class="stat-card">
             <div class="stat-icon navy"><i class="bi bi-people-fill"></i></div>
             <div>
-                <div class="stat-value">{{ stats.total_persons|default:"0" }}</div>
+                <div class="stat-value">{{ stats.total_young_persons|default:"0" }}</div>
                 <div class="stat-label">Young Persons</div>
             </div>
         </div>
@@ -23,7 +23,7 @@
         <div class="stat-card">
             <div class="stat-icon red"><i class="bi bi-exclamation-diamond-fill"></i></div>
             <div>
-                <div class="stat-value">{{ stats.high_risk|default:"0" }}</div>
+                <div class="stat-value">{{ stats.high_risk_count|default:"0" }}</div>
                 <div class="stat-label">High Risk Cases</div>
             </div>
         </div>
@@ -41,8 +41,8 @@
         <div class="stat-card">
             <div class="stat-icon gold"><i class="bi bi-bank2"></i></div>
             <div>
-                <div class="stat-value">{{ stats.upcoming_hearings|default:"0" }}</div>
-                <div class="stat-label">Upcoming Hearings</div>
+                <div class="stat-value">{{ stats.total_hearings|default:"0" }}</div>
+                <div class="stat-label">Total Hearings</div>
             </div>
         </div>
     </div>

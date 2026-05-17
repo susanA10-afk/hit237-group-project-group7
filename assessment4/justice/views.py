@@ -41,11 +41,12 @@ class YoungPersonListView(LoginRequiredMixin, ListView):
     template_name = 'justice/youngperson_list.html'
     context_object_name = 'youngpeople'
     paginate_by = 10
+    ordering = ['last_name', 'first_name']  # add this line
 
     def get_queryset(self):
         queryset = get_all_young_persons().annotate(
             offence_count=Count('offences')
-        )
+        ).order_by('last_name', 'first_name')  # add this
         if hasattr(self.request.user, 'caseworker'):
             queryset = queryset.filter(
                 caseworkers=self.request.user.caseworker
