@@ -471,3 +471,52 @@ trivial conditions do not verify real behaviour.
 - New service functions need corresponding tests
 - Permission boundaries always need a LoginRequiredTest check
 - Run with `python manage.py test`
+
+---
+
+## ADR-011: Feature growth from Assessment 2 to Assessment 4
+
+**Status:** Accepted
+**Date:** May 2026
+**Author:** Susan Acharya
+
+### What was the problem
+Assessment 4 required demonstrating real improvement in
+application functionality. We needed to document what changed
+and why those changes reflect genuine architectural maturity
+rather than surface-level additions.
+
+### What the application could do after Assessment 2
+- List, view, and create young persons, offences, interventions, and court hearings
+- Dashboard showing high risk cases
+- No authentication — any visitor could access all data
+- Business logic mixed into view classes with no separation
+
+### What was added in Assessment 4
+
+| Feature | What it changes |
+|---------|----------------|
+| User authentication via CustomUser | Application is now secure — data sits behind login |
+| Role-based access (admin/caseworker) | Users see what their role allows, nothing more |
+| Service layer in services.py | Business logic is isolated and independently testable |
+| Custom exceptions in exceptions.py | Errors are named and handled at the correct layer |
+| Intervention limit enforcement | System rejects a fourth active intervention rather than silently allowing it |
+| Automatic risk escalation | Recording a serious offence sets risk level to high without manual input |
+| Statistics dashboard (admin only) | Admins see aggregate counts across all models |
+| Full CRUD for all entities | Create, update, delete for all models |
+
+**Code reference:**
+- `assessment4/accounts/models.py` — CustomUser
+- `assessment4/justice/services.py` — all service functions
+- `assessment4/justice/exceptions.py` — domain exceptions
+- `assessment4/justice/views.py` — LoginRequiredMixin, role-based access
+
+### What this means going forward
+- The application now has a production-grade separation of concerns
+- New features are added through the service layer without modifying views directly
+
+---
+
+*ADR last updated: May 2026*
+*Assessment 4 additions: ADR-007, ADR-008, ADR-009, ADR-010, ADR-011*
+*ADR-004 superseded by ADR-008*
