@@ -327,3 +327,52 @@ Key service functions:
 - Views only handle HTTP — no business logic in view classes
 - Service functions can be unit tested without simulating HTTP requests
 - Business rules are in one place and reused across multiple views
+
+---
+
+## ADR-008: Custom User model with role-based access control
+
+**Status:** Accepted — supersedes ADR-004
+**Date:** May 2026
+**Author:** Susan Acharya
+
+### What was the problem
+ADR-004's OneToOneField approach worked for basic login but
+created a structural problem when we introduced roles. The role
+lived on CaseWorker, not on the user object itself. Every
+permission check required two model lookups. Django's documentation
+is clear on this — set a custom user model before the first
+migration. We did not do this in Assessment 2, which meant
+adding it in Assessment 4 required a migration reset.
+
+### Options we looked at
+
+| Option | Good | Bad |
+|--------|------|-----|
+| Keep OneToOneField from ADR-004 | No migration changes | Role check requires two model lookups, fragile |
+| Django Groups and Permissions | Built-in, flexible | Complex setup, overkill for two roles |
+| AbstractUser with role field | Role lives on the user object, clean checks | Must set AUTH_USER_MODEL before first migration |
+| AbstractBaseUser from scratch | Maximum control | Large amount of boilerplate, high risk |
+
+### What we decided
+We created a CustomUser model in a new accounts app by
+extending AbstractUser and adding a role field with choices
+of admin and caseworker. The default role is caseworker.
+
+Two helper methods make role checks readable anywhere:
+- `is_caseworker()` — returns True if role is caseworker
+- `is_admin_user()` — returns True if role is admin
+
+AUTH_USER_MODEL = 'accounts.CustomUser' is set in settings
+so Django uses this model for all authentication.
+
+**Code reference:**
+- `assessment4/accounts/models.py` — CustomUser class, ROLE_CHOICES, helper methods
+- `assessment4/youthjustice/settings.py` — AUTH_USER_MODEL
+- `assessment4/justice/views.py` — LoginRequiredMixin on all views
+- `assessment4/accounts/tests.py` — CustomUserModelTest, AuthenticationTest
+
+### What this means going forward
+- Role is always available on the user object with no extra queries
+- LoginRequiredMixin enforces authentication at the class level
+- Adding a new role only requires a new ROLE_CHOICES entry and a helper method
