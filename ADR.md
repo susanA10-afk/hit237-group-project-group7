@@ -376,3 +376,98 @@ so Django uses this model for all authentication.
 - Role is always available on the user object with no extra queries
 - LoginRequiredMixin enforces authentication at the class level
 - Adding a new role only requires a new ROLE_CHOICES entry and a helper method
+
+---
+
+## ADR-009: Custom domain exceptions
+
+**Status:** Accepted
+**Date:** May 2026
+**Author:** Susan Acharya
+
+### What was the problem
+In Assessment 2 there was no custom exception handling. When
+something went wrong — a young person ID that did not exist,
+an intervention limit breached — Django raised a generic
+DoesNotExist error with no domain meaning. The other option
+was raising Http404 inside service functions, which would
+couple business logic to HTTP concerns.
+
+### Options we looked at
+
+| Option | Good | Bad |
+|--------|------|-----|
+| Bare DoesNotExist | No extra code | No domain meaning, hard to distinguish error types |
+| Http404 in services | Simple | Couples business logic to HTTP, wrong layer |
+| Custom exception classes | Named, testable, catchable by views | Small amount of extra code upfront |
+
+### What we decided
+We created `assessment4/justice/exceptions.py` with five custom
+exception classes, each inheriting from Python's base Exception:
+
+- `YoungPersonNotFound` — raised when a lookup by ID fails
+- `InterventionLimitExceeded` — raised when assigning an intervention would exceed the limit of three active per person
+- `UnauthorisedAccess` — raised when a user tries to access a case not assigned to them
+- `InvalidRiskLevel` — raised when an invalid risk value is provided
+- `OffenceNotFound` — raised when an offence record lookup fails
+
+**Code reference:**
+- `assessment4/justice/exceptions.py` — all five exception classes
+- `assessment4/justice/services.py` — get_young_person_by_id raises YoungPersonNotFound; assign_intervention raises InterventionLimitExceeded
+- `assessment4/justice/tests.py` — tests verify exceptions raised correctly
+
+### What this means going forward
+- Errors have clear names and can be caught specifically
+- Services stay decoupled from HTTP concerns
+- New error conditions just need a new exception class
+
+---
+
+## ADR-010: Testing strategy
+
+**Status:** Accepted
+**Date:** May 2026
+**Author:** Susan Acharya
+
+### What was the problem
+Assessment 4 requires a meaningful test suite. We needed to
+decide what to test, how to structure tests, and be honest
+about what we chose not to test and why. Tests that only check
+trivial conditions do not verify real behaviour.
+
+### Structure
+- `assessment4/justice/tests.py` — service functions, business rules, view permissions
+- `assessment4/accounts/tests.py` — CustomUser model and authentication
+
+### What we tested and why
+
+| Test area | What it verifies | Why it matters |
+|-----------|-----------------|----------------|
+| YoungPersonModelTest | Age calculation and is_high_risk() | Core model behaviour — if wrong, downstream logic breaks |
+| RecordOffenceServiceTest | Serious offences auto-set risk to high | Silent bug here produces wrong risk data |
+| GetYoungPersonServiceTest | YoungPersonNotFound raised for missing ID | If it returns None silently, callers break |
+| InterventionLimitTest | Raises InterventionLimitExceeded at limit of 3 | Hard business rule — must be enforced |
+| DashboardStatsTest | Counts aggregate correctly | Statistics shown to admins must be accurate |
+| LoginRequiredTest | Unauthenticated requests get 302 redirect | If this fails, all data is exposed |
+| CustomUserModelTest | Role defaults to caseworker, helper methods correct | Everything else depends on this working |
+| AuthenticationTest | Login works with valid credentials, fails with wrong | Login is the entry point to the whole app |
+
+**Total: 30 tests, all passing**
+
+### What we chose not to test and why
+
+| Area | Reason |
+|------|--------|
+| Template HTML output | Couples tests to presentation — any styling change breaks tests |
+| Django admin interface | Django tests its own admin already |
+| Database migrations | Verified by running the server, not our logic to test |
+
+**Code reference:**
+- `assessment4/justice/tests.py`
+- `assessment4/accounts/tests.py`
+- `assessment4/evidence/` — screenshots of 30 tests passing
+
+### What this means going forward
+- New service functions need corresponding tests
+- Permission boundaries always need a LoginRequiredTest check
+- Run with `python manage.py test`
