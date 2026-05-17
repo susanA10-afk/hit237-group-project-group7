@@ -276,3 +276,54 @@ line 87 uses YoungPerson.high_risk.prefetch_related()
 - Any new view can reuse the high_risk manager easily
 - Filter logic only needs to be changed in one place
 - Makes the codebase cleaner and easier to read
+
+---
+
+## ADR-007: Service layer architecture
+
+**Status:** Accepted
+**Date:** May 2026
+**Author:** Susan Acharya
+
+### What was the problem
+In Assessment 2, all business logic lived directly inside view
+classes. Views were doing too many things at once — handling HTTP
+requests, querying the database, enforcing business rules, and
+preparing template context. This made the logic impossible to
+test without simulating a full HTTP request, and it made views
+hard to read.
+
+### Options we looked at
+
+| Option | Good | Bad |
+|--------|------|-----|
+| Keep logic in views | No extra files | Views become bloated, logic untestable in isolation |
+| Fat model approach | Logic close to data | Models become hard to maintain |
+| Dedicated service module — services.py | Logic isolated, testable, reusable | Extra layer to understand |
+| Class-based services | Very structured | Overkill for this project size |
+
+### What we decided
+We created `assessment4/justice/services.py` containing all
+business logic as plain Python functions. Views call service
+functions rather than touching the database directly.
+
+We chose functions over classes because our operations are
+stateless — they take inputs and return outputs without needing
+to maintain state between calls.
+
+Key service functions:
+- `get_all_young_persons()` — fetches all young persons with related data
+- `get_young_person_by_id(person_id)` — raises YoungPersonNotFound if not found
+- `record_offence(young_person_id, offence_data)` — records offence inside a transaction, auto-sets risk to high for serious offences
+- `assign_intervention(young_person_id, caseworker, intervention_data)` — enforces max 3 active interventions limit
+- `get_dashboard_stats()` — aggregates counts across all models
+
+**Code reference:**
+- `assessment4/justice/services.py` — all service functions
+- `assessment4/justice/views.py` — views import and call services
+- `assessment4/justice/tests.py` — RecordOffenceServiceTest, InterventionLimitTest
+
+### What this means going forward
+- Views only handle HTTP — no business logic in view classes
+- Service functions can be unit tested without simulating HTTP requests
+- Business rules are in one place and reused across multiple views
