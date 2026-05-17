@@ -139,7 +139,7 @@ internally
 
 ## ADR-004: Extending Django's built-in User model
 
-**Status:** Accepted  
+**Status:** Superseded by ADR-008 
 **Date:** April 2026  
 **Author:** Susan Acharya
 
@@ -176,6 +176,18 @@ OneToOneField linking to Django's User model
 - Password handling and sessions are managed by Django
 - When creating a new caseworker we also need to create 
 a linked User account
+
+### Why this was superseded
+When Assessment 4 introduced role-based access control, this
+approach broke down. The role lived on CaseWorker, not on the
+user object itself. Every permission check had to join two
+models — authenticate via User, then look up CaseWorker to
+find the role. LoginRequiredMixin and view-level role checks
+became awkward. Django's own documentation recommends defining
+a custom user model at the start of a project. We should have
+done this from the beginning.
+
+**Superseded by:** ADR-008
 
 ---
 
