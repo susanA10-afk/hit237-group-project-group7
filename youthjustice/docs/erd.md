@@ -1,36 +1,46 @@
-# Entity Relationship Diagram
+## Entity Relationship Diagram
 ## Youth Justice & Crime App — Group 7
 
-This diagram shows all models in the application and
-how they relate to each other.
+This diagram shows the updated database structure
+for Assessment 4 including authentication support
+through the CustomUser model.
 
 ## Relationships
 
-- User → CaseWorker (one to one)
+- CustomUser → CaseWorker (one to one)
 - CaseWorker ↔ YoungPerson (many to many)
 - YoungPerson → Offence (one to many)
 - YoungPerson → Intervention (one to many)
 - YoungPerson → CourtHearing (one to many)
-- CourtHearing ↔ Offence through HearingOffence (through model)
+- CourtHearing ↔ Offence through HearingOffence
 
 ## Diagram
 
 ```mermaid
 erDiagram
-  USER ||--|| CASEWORKER : "extends"
-  CASEWORKER }o--o{ YOUNGPERSON : "manages"
-  YOUNGPERSON ||--o{ OFFENCE : "has"
-  YOUNGPERSON ||--o{ INTERVENTION : "receives"
-  YOUNGPERSON ||--o{ COURTHEARING : "attends"
-  COURTHEARING ||--o{ HEARINGOFFENCE : "through"
-  OFFENCE ||--o{ HEARINGOFFENCE : "through"
 
-  USER {
+  CUSTOMUSER ||--|| CASEWORKER : "assigned to"
+
+  CASEWORKER }o--o{ YOUNGPERSON : "manages"
+
+  YOUNGPERSON ||--o{ OFFENCE : "has"
+
+  YOUNGPERSON ||--o{ INTERVENTION : "receives"
+
+  YOUNGPERSON ||--o{ COURTHEARING : "attends"
+
+  COURTHEARING ||--o{ HEARINGOFFENCE : "includes"
+
+  OFFENCE ||--o{ HEARINGOFFENCE : "linked to"
+
+  CUSTOMUSER {
     int id PK
     string username
     string password
     string email
+    string role
   }
+
   CASEWORKER {
     int id PK
     int user_id FK
@@ -38,6 +48,7 @@ erDiagram
     string phone
     string department
   }
+
   YOUNGPERSON {
     int id PK
     string first_name
@@ -47,6 +58,7 @@ erDiagram
     string postcode
     string risk_level
   }
+
   OFFENCE {
     int id PK
     int young_person_id FK
@@ -56,6 +68,7 @@ erDiagram
     string severity
     text description
   }
+
   INTERVENTION {
     int id PK
     int young_person_id FK
@@ -66,6 +79,7 @@ erDiagram
     string status
     text outcome
   }
+
   COURTHEARING {
     int id PK
     int young_person_id FK
@@ -74,6 +88,7 @@ erDiagram
     string outcome
     string presiding_judge
   }
+
   HEARINGOFFENCE {
     int id PK
     int hearing_id FK
