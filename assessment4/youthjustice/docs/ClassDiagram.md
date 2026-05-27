@@ -1,27 +1,40 @@
 # Relationship
 
-User → CaseWorker  
-- One User has one CaseWorker profile (One-to-One)
+CustomUser → CaseWorker  
+- One CustomUser has one CaseWorker profile (One-to-One)
+
 CaseWorker → YoungPerson  
 - One CaseWorker manages many YoungPersons (One-to-Many)
+
 YoungPerson → Offence  
 - One YoungPerson can commit many Offences (One-to-Many)
+
 YoungPerson → Intervention  
 - One YoungPerson can receive many Interventions (One-to-Many)
+
 YoungPerson → CourtHearing  
 - One YoungPerson can attend many CourtHearings (One-to-Many)
+
 CourtHearing ↔ Offence (via HearingOffence)  
 - Many-to-Many relationship through HearingOffence junction table
 
+Views → Services → Models  
+- Views interact with the service layer which handles business logic and database operations
+
+Services → Exceptions  
+- Services raise custom exceptions for validation and error handling
+
 # Diagram
+
 ```mermaid
 classDiagram
 
-class User {
+class CustomUser {
   +int id
   +string username
   +string email
   +string password
+  +string role
 }
 
 class CaseWorker {
@@ -84,3 +97,47 @@ class HighRiskManager {
   +get_queryset()
 }
 
+class JusticeService {
+  +create_intervention()
+  +assign_caseworker()
+  +generate_statistics()
+  +validate_young_person()
+}
+
+class AuthenticationService {
+  +authenticate_user()
+  +login_user()
+  +logout_user()
+}
+
+class ServiceError {
+  +message
+}
+
+class ValidationError {
+  +message
+}
+
+class AuthenticationError {
+  +message
+}
+
+CustomUser --> CaseWorker
+
+CaseWorker --> YoungPerson
+
+YoungPerson --> Offence
+YoungPerson --> Intervention
+YoungPerson --> CourtHearing
+
+CourtHearing --> HearingOffence
+Offence --> HearingOffence
+
+JusticeService --> YoungPerson
+JusticeService --> Intervention
+JusticeService --> ServiceError
+JusticeService --> ValidationError
+
+AuthenticationService --> CustomUser
+AuthenticationService --> AuthenticationError
+```
