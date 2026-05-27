@@ -115,14 +115,14 @@ for understanding the work.
 | Statistics dashboard page | Milan | May 14 |  Done |
 | ADR-007 to ADR-011 written | Susan | May 18 |  Done |
 | Group contract updated with A4 milestones | Susan | May 18 | Done |
-| ERD updated to include CustomUser model | Subodh | May 21 |  Pending |
-| Class diagram updated with service layer | Subodh | May 21 |  Pending |
-| Sequence diagram for authentication flow | Subodh | May 21 |  Pending |
-| justice/tests.py — service and view tests | Sisan | May 22 |  Pending |
-| accounts/tests.py — auth and model tests | Sisan | May 22 |  Pending |
-| Test screenshots committed to evidence/ | Sisan | May 22 |  Pending |
-| Final team review — app runs from scratch | All | May 27 |  Pending |
-| GitHub URL submitted on Learnline | All | May 28 |  Pending |
+| ERD updated to include CustomUser model | Subodh | May 21 |  Done |
+| Class diagram updated with service layer | Subodh | May 21 |  Done |
+| Sequence diagram for authentication flow | Subodh | May 21 |  Done |
+| justice/tests.py — service and view tests | Sisan | May 22 |  Done |
+| accounts/tests.py — auth and model tests | Sisan | May 22 |  Done |
+| Test screenshots committed to evidence/ | Sisan | May 22 |  Done |
+| Final team review — app runs from scratch | All | May 27 |  Done |
+| GitHub URL submitted on Learnline | All | May 28 |  Done |
 
 ---
 
