@@ -3,6 +3,10 @@
 A Django web application built for HIT237 Building Interactive
 Software at Charles Darwin University.
 
+## Test Evidence
+
+All test result screenshots are located in the `assessment4/evidence/` folder of this repository. Screenshots show all 18 unit tests passing. Tests can also be run locally using:cd assessment4 python manage.py test
+
 ## About the App
 
 This app is a case management system for youth justice in the
