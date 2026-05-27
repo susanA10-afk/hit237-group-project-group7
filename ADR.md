@@ -139,7 +139,7 @@ internally
 
 ## ADR-004: Extending Django's built-in User model
 
-**Status:** Superseded by ADR-008 
+**Status:** Superseded by ADR-008  
 **Date:** April 2026  
 **Author:** Susan Acharya
 
@@ -158,24 +158,14 @@ to decide how to handle user accounts.
 | Extend with OneToOneField (what we did) | Keeps Django auth working, lets us add custom fields | Two linked models to manage |
 
 ### What we decided
-We extend Django's built-in User model by linking it to our 
-`CaseWorker` model using a OneToOneField. This means we keep 
-all of Django's login, logout and permissions system working 
-out of the box, while still being able to store the extra 
-caseworker-specific information we need.
-
-This follows Django's reusability philosophy — we reuse 
-what Django already gives us rather than rebuilding it 
-from scratch.
+We extended Django's built-in User model by linking it to our 
+`CaseWorker` model using a OneToOneField. This kept all of 
+Django's login, logout and permissions system working out of 
+the box, while still allowing us to store caseworker-specific 
+information.
 
 **Code reference:** `justice/models.py` — CaseWorker class, 
 OneToOneField linking to Django's User model
-
-### What this means going forward
-- Django admin login works automatically
-- Password handling and sessions are managed by Django
-- When creating a new caseworker we also need to create 
-a linked User account
 
 ### Why this was superseded
 When Assessment 4 introduced role-based access control, this
@@ -233,10 +223,17 @@ hearings in one query
 - CaseWorkerDashboardView.get_queryset lines 86–89 — uses 
 high_risk custom manager with prefetch_related and annotate
 
+`assessment4/justice/services.py` — get_all_young_persons() 
+uses select_related and prefetch_related('offences', 
+'interventions', 'caseworkers'); get_high_risk_cases() 
+uses YoungPerson.high_risk.prefetch_related('offences', 
+'interventions') — the same optimisation pattern continues 
+in the service layer
+
 ### What this means going forward
 - Fewer database queries means faster page loads
 - QuerySet optimisation needs to be considered whenever 
-a new view is added
+a new view or service function is added
 
 ---
 
@@ -260,8 +257,8 @@ would repeat the same filter logic in multiple places.
 
 ### What we decided
 We created a custom manager called `high_risk` on the 
-YoungPerson model. Any view can access high risk young 
-persons by simply calling `YoungPerson.high_risk.all()` 
+YoungPerson model. Any view or service function can access 
+high risk young persons by calling `YoungPerson.high_risk.all()` 
 without repeating filter logic anywhere.
 
 This follows Django's DRY philosophy — the filtering 
@@ -271,9 +268,15 @@ logic is defined once and reused everywhere it is needed.
 - `justice/models.py` — high_risk custom manager
 - `justice/views.py` — CaseWorkerDashboardView.get_queryset 
 line 87 uses YoungPerson.high_risk.prefetch_related()
+- `assessment4/justice/services.py` — get_high_risk_cases() 
+uses YoungPerson.high_risk.prefetch_related('offences', 
+'interventions'); get_dashboard_stats() uses 
+YoungPerson.high_risk.count() — the manager is now reused 
+in two places in the service layer, not just in views
 
 ### What this means going forward
-- Any new view can reuse the high_risk manager easily
+- Any new view or service function can reuse the high_risk 
+manager easily
 - Filter logic only needs to be changed in one place
 - Makes the codebase cleaner and easier to read
 
@@ -281,8 +284,8 @@ line 87 uses YoungPerson.high_risk.prefetch_related()
 
 ## ADR-007: Service layer architecture
 
-**Status:** Accepted
-**Date:** May 2026
+**Status:** Accepted  
+**Date:** May 2026  
 **Author:** Susan Acharya
 
 ### What was the problem
@@ -332,8 +335,8 @@ Key service functions:
 
 ## ADR-008: Custom User model with role-based access control
 
-**Status:** Accepted — supersedes ADR-004
-**Date:** May 2026
+**Status:** Accepted — supersedes ADR-004  
+**Date:** May 2026  
 **Author:** Susan Acharya
 
 ### What was the problem
@@ -381,8 +384,8 @@ so Django uses this model for all authentication.
 
 ## ADR-009: Custom domain exceptions
 
-**Status:** Accepted
-**Date:** May 2026
+**Status:** Accepted  
+**Date:** May 2026  
 **Author:** Susan Acharya
 
 ### What was the problem
@@ -399,7 +402,7 @@ couple business logic to HTTP concerns.
 |--------|------|-----|
 | Bare DoesNotExist | No extra code | No domain meaning, hard to distinguish error types |
 | Http404 in services | Simple | Couples business logic to HTTP, wrong layer |
-| Custom exception classes | Named, testable, catchable by views | Small amount of extra code upfront |
+| Custom exception classes (what we did) | Named, testable, catchable by views | Small amount of extra code upfront |
 
 ### What we decided
 We created `assessment4/justice/exceptions.py` with five custom
@@ -425,8 +428,8 @@ exception classes, each inheriting from Python's base Exception:
 
 ## ADR-010: Testing strategy
 
-**Status:** Accepted
-**Date:** May 2026
+**Status:** Accepted  
+**Date:** May 2026  
 **Author:** Susan Acharya
 
 ### What was the problem
@@ -476,8 +479,8 @@ trivial conditions do not verify real behaviour.
 
 ## ADR-011: Feature growth from Assessment 2 to Assessment 4
 
-**Status:** Accepted
-**Date:** May 2026
+**Status:** Accepted  
+**Date:** May 2026  
 **Author:** Susan Acharya
 
 ### What was the problem
@@ -517,6 +520,6 @@ rather than surface-level additions.
 
 ---
 
-*ADR last updated: May 2026*
-*Assessment 4 additions: ADR-007, ADR-008, ADR-009, ADR-010, ADR-011*
+*ADR last updated: May 2026*  
+*Assessment 4 additions: ADR-007, ADR-008, ADR-009, ADR-010, ADR-011*  
 *ADR-004 superseded by ADR-008*
